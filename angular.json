@@ -95,6 +95,7 @@
   },
   "defaultProject": "league-manager",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }
