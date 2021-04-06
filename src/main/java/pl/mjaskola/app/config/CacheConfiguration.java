@@ -49,6 +49,8 @@ public class CacheConfiguration {
             createCache(cm, pl.mjaskola.app.domain.User.class.getName());
             createCache(cm, pl.mjaskola.app.domain.Authority.class.getName());
             createCache(cm, pl.mjaskola.app.domain.User.class.getName() + ".authorities");
+            createCache(cm, pl.mjaskola.app.domain.Team.class.getName());
+            createCache(cm, pl.mjaskola.app.domain.Team.class.getName() + ".users");
             // jhipster-needle-caffeine-add-entry
         };
     }
