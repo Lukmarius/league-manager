@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.mjaskola.app.domain.Team;
+import pl.mjaskola.app.domain.User;
 
 /**
  * Spring Data SQL repository for the Team entity.
@@ -25,4 +26,12 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Query("select team from Team team left join fetch team.users where team.id =:id")
     Optional<Team> findOneWithEagerRelationships(@Param("id") Long id);
+
+    @Query("select distinct team from Team team left join fetch team.users users where :user in (users)")
+    List<Team> findAllWithEagerRelationshipsByUser(@Param("user") User user);
+
+    @Query("select distinct team from Team team left join fetch team.users users where :userId in (users)")
+    List<Team> findAllWithEagerRelationshipsByUserId(@Param("userId") User user);
+
+    List<Team> findDistinctByUsersContains(User user);
 }

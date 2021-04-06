@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.domain.Team;
+import pl.mjaskola.app.domain.User;
 import pl.mjaskola.app.repository.TeamRepository;
 import pl.mjaskola.app.service.TeamService;
+import pl.mjaskola.app.service.UserService;
 import pl.mjaskola.app.service.dto.TeamDTO;
 import pl.mjaskola.app.service.mapper.TeamMapper;
 
@@ -28,10 +30,12 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
 
     private final TeamMapper teamMapper;
+    private final UserService userService;
 
-    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper) {
+    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper, UserService userService) {
         this.teamRepository = teamRepository;
         this.teamMapper = teamMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -62,11 +66,22 @@ public class TeamServiceImpl implements TeamService {
     @Transactional(readOnly = true)
     public List<TeamDTO> findAll() {
         log.debug("Request to get all Teams");
-        return teamRepository
-            .findAllWithEagerRelationships()
-            .stream()
-            .map(teamMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        Optional<User> optionalUser = userService.getUserWithAuthorities();
+        List<Team> teams;
+        if (optionalUser.isPresent()) {
+            teams = teamRepository.findDistinctByUsersContains(optionalUser.get());
+        }
+
+        return optionalUser
+            .map(
+                user ->
+                    teamRepository
+                        .findDistinctByUsersContains(user)
+                        .stream()
+                        .map(teamMapper::toDto)
+                        .collect(Collectors.toCollection(LinkedList::new))
+            )
+            .orElseGet(LinkedList::new);
     }
 
     public Page<TeamDTO> findAllWithEagerRelationships(Pageable pageable) {
