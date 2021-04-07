@@ -137,7 +137,7 @@ public class TeamResource {
     @GetMapping("/teams")
     public List<TeamDTO> getAllTeams(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Teams");
-        return teamService.findAll();
+        return teamService.findAllByUser();
     }
 
     /**

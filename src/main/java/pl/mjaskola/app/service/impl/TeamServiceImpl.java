@@ -28,14 +28,13 @@ public class TeamServiceImpl implements TeamService {
     private final Logger log = LoggerFactory.getLogger(TeamServiceImpl.class);
 
     private final TeamRepository teamRepository;
-
-    private final TeamMapper teamMapper;
     private final UserService userService;
+    private final TeamMapper teamMapper;
 
-    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper, UserService userService) {
+    public TeamServiceImpl(TeamRepository teamRepository, UserService userService, TeamMapper teamMapper) {
         this.teamRepository = teamRepository;
-        this.teamMapper = teamMapper;
         this.userService = userService;
+        this.teamMapper = teamMapper;
     }
 
     @Override
@@ -65,6 +64,17 @@ public class TeamServiceImpl implements TeamService {
     @Override
     @Transactional(readOnly = true)
     public List<TeamDTO> findAll() {
+        log.debug("Request to get all Teams");
+        return teamRepository
+            .findAllWithEagerRelationships()
+            .stream()
+            .map(teamMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TeamDTO> findAllByUser() {
         log.debug("Request to get all Teams");
         Optional<User> optionalUser = userService.getUserWithAuthorities();
         List<Team> teams;
