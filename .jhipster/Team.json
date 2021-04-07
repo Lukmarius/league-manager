@@ -17,7 +17,7 @@
   ],
   "service": "serviceImpl",
   "dto": "mapstruct",
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "readOnly": false,
   "pagination": "no",
   "name": "Team",

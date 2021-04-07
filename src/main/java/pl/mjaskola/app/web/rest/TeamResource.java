@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mjaskola.app.repository.TeamRepository;
+import pl.mjaskola.app.service.TeamQueryService;
 import pl.mjaskola.app.service.TeamService;
+import pl.mjaskola.app.service.criteria.TeamCriteria;
 import pl.mjaskola.app.service.dto.TeamDTO;
 import pl.mjaskola.app.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
@@ -35,9 +37,12 @@ public class TeamResource {
 
     private final TeamRepository teamRepository;
 
-    public TeamResource(TeamService teamService, TeamRepository teamRepository) {
+    private final TeamQueryService teamQueryService;
+
+    public TeamResource(TeamService teamService, TeamRepository teamRepository, TeamQueryService teamQueryService) {
         this.teamService = teamService;
         this.teamRepository = teamRepository;
+        this.teamQueryService = teamQueryService;
     }
 
     /**
@@ -131,13 +136,26 @@ public class TeamResource {
     /**
      * {@code GET  /teams} : get all the teams.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teams in body.
      */
     @GetMapping("/teams")
-    public List<TeamDTO> getAllTeams(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get all Teams");
-        return teamService.findAllByUser();
+    public ResponseEntity<List<TeamDTO>> getAllTeams(TeamCriteria criteria) {
+        log.debug("REST request to get Teams by criteria: {}", criteria);
+        List<TeamDTO> entityList = teamQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /teams/count} : count all the teams.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/teams/count")
+    public ResponseEntity<Long> countTeams(TeamCriteria criteria) {
+        log.debug("REST request to count Teams by criteria: {}", criteria);
+        return ResponseEntity.ok().body(teamQueryService.countByCriteria(criteria));
     }
 
     /**

@@ -77,20 +77,9 @@ public class TeamServiceImpl implements TeamService {
     public List<TeamDTO> findAllByUser() {
         log.debug("Request to get all Teams");
         Optional<User> optionalUser = userService.getUserWithAuthorities();
-        List<Team> teams;
-        if (optionalUser.isPresent()) {
-            teams = teamRepository.findDistinctByUsersContains(optionalUser.get());
-        }
 
         return optionalUser
-            .map(
-                user ->
-                    teamRepository
-                        .findDistinctByUsersContains(user)
-                        .stream()
-                        .map(teamMapper::toDto)
-                        .collect(Collectors.toCollection(LinkedList::new))
-            )
+            .map(user -> teamRepository.findDistinctByUsersContains(user).stream().map(teamMapper::toDto).collect(Collectors.toList()))
             .orElseGet(LinkedList::new);
     }
 

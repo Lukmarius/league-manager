@@ -26,8 +26,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.IntegrationTest;
 import pl.mjaskola.app.domain.Team;
+import pl.mjaskola.app.domain.User;
 import pl.mjaskola.app.repository.TeamRepository;
 import pl.mjaskola.app.service.TeamService;
+import pl.mjaskola.app.service.criteria.TeamCriteria;
 import pl.mjaskola.app.service.dto.TeamDTO;
 import pl.mjaskola.app.service.mapper.TeamMapper;
 
@@ -178,6 +180,159 @@ class TeamResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(team.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+    }
+
+    @Test
+    @Transactional
+    void getTeamsByIdFiltering() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        Long id = team.getId();
+
+        defaultTeamShouldBeFound("id.equals=" + id);
+        defaultTeamShouldNotBeFound("id.notEquals=" + id);
+
+        defaultTeamShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultTeamShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultTeamShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultTeamShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name equals to DEFAULT_NAME
+        defaultTeamShouldBeFound("name.equals=" + DEFAULT_NAME);
+
+        // Get all the teamList where name equals to UPDATED_NAME
+        defaultTeamShouldNotBeFound("name.equals=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name not equals to DEFAULT_NAME
+        defaultTeamShouldNotBeFound("name.notEquals=" + DEFAULT_NAME);
+
+        // Get all the teamList where name not equals to UPDATED_NAME
+        defaultTeamShouldBeFound("name.notEquals=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name in DEFAULT_NAME or UPDATED_NAME
+        defaultTeamShouldBeFound("name.in=" + DEFAULT_NAME + "," + UPDATED_NAME);
+
+        // Get all the teamList where name equals to UPDATED_NAME
+        defaultTeamShouldNotBeFound("name.in=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name is not null
+        defaultTeamShouldBeFound("name.specified=true");
+
+        // Get all the teamList where name is null
+        defaultTeamShouldNotBeFound("name.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameContainsSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name contains DEFAULT_NAME
+        defaultTeamShouldBeFound("name.contains=" + DEFAULT_NAME);
+
+        // Get all the teamList where name contains UPDATED_NAME
+        defaultTeamShouldNotBeFound("name.contains=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByNameNotContainsSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where name does not contain DEFAULT_NAME
+        defaultTeamShouldNotBeFound("name.doesNotContain=" + DEFAULT_NAME);
+
+        // Get all the teamList where name does not contain UPDATED_NAME
+        defaultTeamShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByUserIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        team.addUser(user);
+        teamRepository.saveAndFlush(team);
+        Long userId = user.getId();
+
+        // Get all the teamList where user equals to userId
+        defaultTeamShouldBeFound("userId.equals=" + userId);
+
+        // Get all the teamList where user equals to (userId + 1)
+        defaultTeamShouldNotBeFound("userId.equals=" + (userId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultTeamShouldBeFound(String filter) throws Exception {
+        restTeamMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+
+        // Check, that the count call also returns 1
+        restTeamMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultTeamShouldNotBeFound(String filter) throws Exception {
+        restTeamMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restTeamMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test
