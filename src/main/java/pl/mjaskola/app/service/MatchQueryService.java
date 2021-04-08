@@ -107,6 +107,12 @@ public class MatchQueryService extends QueryService<Match> {
                         )
                     );
             }
+            if (criteria.getRoundId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getRoundId(), root -> root.join(Match_.round, JoinType.LEFT).get(Round_.id))
+                    );
+            }
         }
         return specification;
     }

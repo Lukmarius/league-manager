@@ -53,6 +53,19 @@
             </option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.match.round" for="field_round">Round</label>
+          <select class="form-control" id="field_round" data-cy="round" name="round" formControlName="round">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="roundOption.id === editForm.get('round')!.value?.id ? editForm.get('round')!.value : roundOption"
+              *ngFor="let roundOption of roundsSharedCollection; trackBy: trackRoundById"
+            >
+              {{ roundOption.roundNumber }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

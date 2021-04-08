@@ -21,6 +21,12 @@
       "ownerSide": true,
       "id": true,
       "otherEntityRelationshipName": "match"
+    },
+    {
+      "relationshipName": "round",
+      "otherEntityName": "round",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "roundNumber"
     }
   ],
   "service": "serviceImpl",

@@ -16,6 +16,8 @@ public class MatchDTO implements Serializable {
 
     private MatchResultDTO matchResult;
 
+    private RoundDTO round;
+
     public Long getId() {
         return id;
     }
@@ -48,6 +50,14 @@ public class MatchDTO implements Serializable {
         this.matchResult = matchResult;
     }
 
+    public RoundDTO getRound() {
+        return round;
+    }
+
+    public void setRound(RoundDTO round) {
+        this.round = round;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,6 +87,7 @@ public class MatchDTO implements Serializable {
             ", homeTeam=" + getHomeTeam() +
             ", awayTeam=" + getAwayTeam() +
             ", matchResult=" + getMatchResult() +
+            ", round=" + getRound() +
             "}";
     }
 }

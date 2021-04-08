@@ -13,6 +13,8 @@ import { ITeam } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { IMatchResult } from 'app/entities/match-result/match-result.model';
 import { MatchResultService } from 'app/entities/match-result/service/match-result.service';
+import { IRound } from 'app/entities/round/round.model';
+import { RoundService } from 'app/entities/round/service/round.service';
 
 import { MatchUpdateComponent } from './match-update.component';
 
@@ -24,6 +26,7 @@ describe('Component Tests', () => {
     let matchService: MatchService;
     let teamService: TeamService;
     let matchResultService: MatchResultService;
+    let roundService: RoundService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -39,6 +42,7 @@ describe('Component Tests', () => {
       matchService = TestBed.inject(MatchService);
       teamService = TestBed.inject(TeamService);
       matchResultService = TestBed.inject(MatchResultService);
+      roundService = TestBed.inject(RoundService);
 
       comp = fixture.componentInstance;
     });
@@ -83,6 +87,25 @@ describe('Component Tests', () => {
         expect(comp.matchResultsCollection).toEqual(expectedCollection);
       });
 
+      it('Should call Round query and add missing value', () => {
+        const match: IMatch = { id: 456 };
+        const round: IRound = { id: 96548 };
+        match.round = round;
+
+        const roundCollection: IRound[] = [{ id: 53641 }];
+        spyOn(roundService, 'query').and.returnValue(of(new HttpResponse({ body: roundCollection })));
+        const additionalRounds = [round];
+        const expectedCollection: IRound[] = [...additionalRounds, ...roundCollection];
+        spyOn(roundService, 'addRoundToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ match });
+        comp.ngOnInit();
+
+        expect(roundService.query).toHaveBeenCalled();
+        expect(roundService.addRoundToCollectionIfMissing).toHaveBeenCalledWith(roundCollection, ...additionalRounds);
+        expect(comp.roundsSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const match: IMatch = { id: 456 };
         const homeTeam: ITeam = { id: 13467 };
@@ -91,6 +114,8 @@ describe('Component Tests', () => {
         match.awayTeam = awayTeam;
         const matchResult: IMatchResult = { id: 98391 };
         match.matchResult = matchResult;
+        const round: IRound = { id: 16070 };
+        match.round = round;
 
         activatedRoute.data = of({ match });
         comp.ngOnInit();
@@ -99,6 +124,7 @@ describe('Component Tests', () => {
         expect(comp.teamsSharedCollection).toContain(homeTeam);
         expect(comp.teamsSharedCollection).toContain(awayTeam);
         expect(comp.matchResultsCollection).toContain(matchResult);
+        expect(comp.roundsSharedCollection).toContain(round);
       });
     });
 
@@ -179,6 +205,14 @@ describe('Component Tests', () => {
         it('Should return tracked MatchResult primary key', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackMatchResultById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+
+      describe('trackRoundById', () => {
+        it('Should return tracked Round primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackRoundById(0, entity);
           expect(trackResult).toEqual(entity.id);
         });
       });

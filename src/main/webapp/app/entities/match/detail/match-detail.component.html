@@ -32,6 +32,12 @@
             <a [routerLink]="['/match-result', match.matchResult?.id, 'view']">{{ match.matchResult?.id }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="leagueManagerApp.match.round">Round</span></dt>
+        <dd>
+          <div *ngIf="match.round">
+            <a [routerLink]="['/round', match.round?.id, 'view']">{{ match.round?.roundNumber }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

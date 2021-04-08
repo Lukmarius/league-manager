@@ -32,6 +32,8 @@ public class MatchCriteria implements Serializable, Criteria {
 
     private LongFilter matchResultId;
 
+    private LongFilter roundId;
+
     public MatchCriteria() {}
 
     public MatchCriteria(MatchCriteria other) {
@@ -39,6 +41,7 @@ public class MatchCriteria implements Serializable, Criteria {
         this.homeTeamId = other.homeTeamId == null ? null : other.homeTeamId.copy();
         this.awayTeamId = other.awayTeamId == null ? null : other.awayTeamId.copy();
         this.matchResultId = other.matchResultId == null ? null : other.matchResultId.copy();
+        this.roundId = other.roundId == null ? null : other.roundId.copy();
     }
 
     @Override
@@ -106,6 +109,21 @@ public class MatchCriteria implements Serializable, Criteria {
         this.matchResultId = matchResultId;
     }
 
+    public LongFilter getRoundId() {
+        return roundId;
+    }
+
+    public LongFilter roundId() {
+        if (roundId == null) {
+            roundId = new LongFilter();
+        }
+        return roundId;
+    }
+
+    public void setRoundId(LongFilter roundId) {
+        this.roundId = roundId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -119,13 +137,14 @@ public class MatchCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(homeTeamId, that.homeTeamId) &&
             Objects.equals(awayTeamId, that.awayTeamId) &&
-            Objects.equals(matchResultId, that.matchResultId)
+            Objects.equals(matchResultId, that.matchResultId) &&
+            Objects.equals(roundId, that.roundId)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, homeTeamId, awayTeamId, matchResultId);
+        return Objects.hash(id, homeTeamId, awayTeamId, matchResultId, roundId);
     }
 
     // prettier-ignore
@@ -136,6 +155,7 @@ public class MatchCriteria implements Serializable, Criteria {
             (homeTeamId != null ? "homeTeamId=" + homeTeamId + ", " : "") +
             (awayTeamId != null ? "awayTeamId=" + awayTeamId + ", " : "") +
             (matchResultId != null ? "matchResultId=" + matchResultId + ", " : "") +
+            (roundId != null ? "roundId=" + roundId + ", " : "") +
             "}";
     }
 }

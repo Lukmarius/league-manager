@@ -1,0 +1,16 @@
+{
+  "fields": [
+    {
+      "fieldName": "roundNumber",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceImpl",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Round",
+  "changelogDate": "20210408224416"
+}

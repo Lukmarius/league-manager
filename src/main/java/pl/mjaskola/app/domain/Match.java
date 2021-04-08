@@ -32,6 +32,9 @@ public class Match implements Serializable {
     @JoinColumn(name = "id")
     private MatchResult matchResult;
 
+    @ManyToOne
+    private Round round;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -83,6 +86,19 @@ public class Match implements Serializable {
 
     public void setMatchResult(MatchResult matchResult) {
         this.matchResult = matchResult;
+    }
+
+    public Round getRound() {
+        return this.round;
+    }
+
+    public Match round(Round round) {
+        this.setRound(round);
+        return this;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

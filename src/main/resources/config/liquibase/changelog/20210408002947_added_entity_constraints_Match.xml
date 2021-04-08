@@ -25,5 +25,11 @@
                                  constraintName="fk_match__match_result_id"
                                  referencedColumnNames="id"
                                  referencedTableName="match_result"/>
+
+        <addForeignKeyConstraint baseColumnNames="round_id"
+                                 baseTableName="match"
+                                 constraintName="fk_match__round_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="round"/>
     </changeSet>
 </databaseChangeLog>

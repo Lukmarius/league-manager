@@ -1,0 +1,24 @@
+{
+  "leagueManagerApp": {
+    "round": {
+      "home": {
+        "title": "Round",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj Round",
+        "createOrEditLabel": "Dodaj lub edytuj: Round",
+        "notFound": "No Rounds found"
+      },
+      "created": "Utworzono nowy obiekt typu Round z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Round z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Round z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Round {{ id }}?"
+      },
+      "detail": {
+        "title": "Round"
+      },
+      "id": "ID",
+      "roundNumber": "Round Number"
+    }
+  }
+}

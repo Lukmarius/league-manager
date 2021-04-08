@@ -10,6 +10,7 @@
         "team": "Team",
         "matchResult": "Match Result",
         "match": "Match",
+        "round": "Round",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -20,7 +20,8 @@
       "id": "ID",
       "homeTeam": "Home Team",
       "awayTeam": "Away Team",
-      "matchResult": "Match Result"
+      "matchResult": "Match Result",
+      "round": "Round"
     }
   }
 }

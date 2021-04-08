@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.IntegrationTest;
 import pl.mjaskola.app.domain.Match;
 import pl.mjaskola.app.domain.MatchResult;
+import pl.mjaskola.app.domain.Round;
 import pl.mjaskola.app.domain.Team;
 import pl.mjaskola.app.repository.MatchRepository;
 import pl.mjaskola.app.service.criteria.MatchCriteria;
@@ -153,7 +154,7 @@ class MatchResourceIT {
         em.detach(updatedMatch);
 
         // Update the MatchResult with new association value
-        updatedMatch.setMatchResult(null);
+        updatedMatch.setMatchResult();
         MatchDTO updatedMatchDTO = matchMapper.toDto(updatedMatch);
         assertThat(updatedMatchDTO).isNotNull();
 
@@ -273,6 +274,25 @@ class MatchResourceIT {
 
         // Get all the matchList where matchResult equals to (matchResultId + 1)
         defaultMatchShouldNotBeFound("matchResultId.equals=" + (matchResultId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllMatchesByRoundIsEqualToSomething() throws Exception {
+        // Initialize the database
+        matchRepository.saveAndFlush(match);
+        Round round = RoundResourceIT.createEntity(em);
+        em.persist(round);
+        em.flush();
+        match.setRound(round);
+        matchRepository.saveAndFlush(match);
+        Long roundId = round.getId();
+
+        // Get all the matchList where round equals to roundId
+        defaultMatchShouldBeFound("roundId.equals=" + roundId);
+
+        // Get all the matchList where round equals to (roundId + 1)
+        defaultMatchShouldNotBeFound("roundId.equals=" + (roundId + 1));
     }
 
     /**
