@@ -14,4 +14,10 @@ public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
 
     @Mapping(target = "removeUser", ignore = true)
     Team toEntity(TeamDTO teamDTO);
+
+    @Named("name")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
+    TeamDTO toDtoName(Team team);
 }

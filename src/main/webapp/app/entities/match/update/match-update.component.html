@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-match-heading" data-cy="MatchCreateUpdateHeading" jhiTranslate="leagueManagerApp.match.home.createOrEditLabel">
+        Create or edit a Match
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.match.homeTeam" for="field_homeTeam">Home Team</label>
+          <select class="form-control" id="field_homeTeam" data-cy="homeTeam" name="homeTeam" formControlName="homeTeam">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('homeTeam')!.value?.id ? editForm.get('homeTeam')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.match.awayTeam" for="field_awayTeam">Away Team</label>
+          <select class="form-control" id="field_awayTeam" data-cy="awayTeam" name="awayTeam" formControlName="awayTeam">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('awayTeam')!.value?.id ? editForm.get('awayTeam')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.match.matchResult" for="field_matchResult">Match Result</label>
+          <select class="form-control" id="field_matchResult" data-cy="matchResult" name="matchResult" formControlName="matchResult">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                matchResultOption.id === editForm.get('matchResult')!.value?.id ? editForm.get('matchResult')!.value : matchResultOption
+              "
+              *ngFor="let matchResultOption of matchResultsCollection; trackBy: trackMatchResultById"
+            >
+              {{ matchResultOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

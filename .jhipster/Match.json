@@ -1,0 +1,33 @@
+{
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipName": "homeTeam",
+      "otherEntityName": "team",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipName": "awayTeam",
+      "otherEntityName": "team",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipName": "matchResult",
+      "otherEntityName": "matchResult",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "id": true,
+      "otherEntityRelationshipName": "match"
+    }
+  ],
+  "service": "serviceImpl",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "infinite-scroll",
+  "name": "Match",
+  "changelogDate": "20210408002947"
+}

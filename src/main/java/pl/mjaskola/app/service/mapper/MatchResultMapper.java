@@ -8,4 +8,9 @@ import pl.mjaskola.app.service.dto.MatchResultDTO;
  * Mapper for the entity {@link MatchResult} and its DTO {@link MatchResultDTO}.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface MatchResultMapper extends EntityMapper<MatchResultDTO, MatchResult> {}
+public interface MatchResultMapper extends EntityMapper<MatchResultDTO, MatchResult> {
+    @Named("id")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    MatchResultDTO toDtoId(MatchResult matchResult);
+}

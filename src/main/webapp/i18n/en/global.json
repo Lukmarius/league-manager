@@ -9,6 +9,7 @@
         "main": "Entities",
         "team": "Team",
         "matchResult": "Match Result",
+        "match": "Match",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
