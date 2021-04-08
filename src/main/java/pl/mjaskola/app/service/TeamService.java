@@ -34,13 +34,6 @@ public interface TeamService {
     List<TeamDTO> findAll();
 
     /**
-     * Get all the user's teams.
-     *
-     * @return the list of entities.
-     */
-    List<TeamDTO> findAllByUser();
-
-    /**
      * Get all the teams with eager load of many-to-many relationships.
      *
      * @param pageable the pagination information.

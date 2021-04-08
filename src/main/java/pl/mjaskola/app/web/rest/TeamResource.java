@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,11 @@ public class TeamResource {
 
     private final TeamQueryService teamQueryService;
 
-    public TeamResource(TeamService teamService, TeamRepository teamRepository, TeamQueryService teamQueryService) {
+    public TeamResource(
+        @Qualifier("teamServiceImpl") TeamService teamService,
+        TeamRepository teamRepository,
+        TeamQueryService teamQueryService
+    ) {
         this.teamService = teamService;
         this.teamRepository = teamRepository;
         this.teamQueryService = teamQueryService;
