@@ -42,7 +42,7 @@
     "jwtSecretKey": "ZWU1NTRhOTcyZjkzZjdhZDRlNmQ3ZmQ4OTQwNDQ3ZDhiNjMwYWRjMDFiYmNjZjk0YTYxOGJiYjEyODkyYWQ1MmFiYTg0N2Q3NzNjNWI4N2JkM2NkYWYyMDhkMjg3MjE5YzBkZmFmYTQzZjBjYjQwYTIzZmI1YjE3YWEyYWRiM2I=",
     "clientPackageManager": "npm",
     "languages": ["en", "pl"],
-    "lastLiquibaseTimestamp": 1617921856000,
-    "entities": ["Team", "MatchResult", "Match", "Round"]
+    "lastLiquibaseTimestamp": 1617925262000,
+    "entities": ["Team", "MatchResult", "Match", "Round", "League", "LeagueStanding"]
   }
 }

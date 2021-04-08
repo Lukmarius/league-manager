@@ -55,6 +55,8 @@ public class CacheConfiguration {
             createCache(cm, pl.mjaskola.app.domain.Match.class.getName());
             createCache(cm, pl.mjaskola.app.domain.Round.class.getName());
             createCache(cm, pl.mjaskola.app.domain.Round.class.getName() + ".matches");
+            createCache(cm, pl.mjaskola.app.domain.League.class.getName());
+            createCache(cm, pl.mjaskola.app.domain.LeagueStanding.class.getName());
             // jhipster-needle-caffeine-add-entry
         };
     }

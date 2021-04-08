@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="LeagueStandingHeading">
+    <span jhiTranslate="leagueManagerApp.leagueStanding.home.title">League Standings</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="leagueManagerApp.leagueStanding.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-league-standing"
+        [routerLink]="['/league-standing/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="leagueManagerApp.leagueStanding.home.createLabel"> Create a new League Standing </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="leagueStandings?.length === 0">
+    <span jhiTranslate="leagueManagerApp.leagueStanding.home.notFound">No leagueStandings found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="leagueStandings && leagueStandings.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="position">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.position">Position</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="points">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.points">Points</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="scoredGoals">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.scoredGoals">Scored Goals</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lostGoals">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.lostGoals">Lost Goals</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="wins">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.wins">Wins</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="draws">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.draws">Draws</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="losses">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.losses">Losses</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="team.name">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.team">Team</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="league.name">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.league">League</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leagueStanding of leagueStandings; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/league-standing', leagueStanding.id, 'view']">{{ leagueStanding.id }}</a>
+          </td>
+          <td>{{ leagueStanding.position }}</td>
+          <td>{{ leagueStanding.points }}</td>
+          <td>{{ leagueStanding.scoredGoals }}</td>
+          <td>{{ leagueStanding.lostGoals }}</td>
+          <td>{{ leagueStanding.wins }}</td>
+          <td>{{ leagueStanding.draws }}</td>
+          <td>{{ leagueStanding.losses }}</td>
+          <td>
+            <div *ngIf="leagueStanding.team">
+              <a [routerLink]="['/team', leagueStanding.team?.id, 'view']">{{ leagueStanding.team?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="leagueStanding.league">
+              <a [routerLink]="['/league', leagueStanding.league?.id, 'view']">{{ leagueStanding.league?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/league-standing', leagueStanding.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/league-standing', leagueStanding.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(leagueStanding)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="leagueStandings && leagueStandings.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

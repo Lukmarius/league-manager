@@ -11,6 +11,8 @@
         "matchResult": "Match Result",
         "match": "Match",
         "round": "Round",
+        "league": "League",
+        "leagueStanding": "League Standing",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

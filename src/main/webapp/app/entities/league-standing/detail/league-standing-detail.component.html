@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="leagueStanding">
+      <h2 data-cy="leagueStandingDetailsHeading">
+        <span jhiTranslate="leagueManagerApp.leagueStanding.detail.title">League Standing</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ leagueStanding.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.position">Position</span></dt>
+        <dd>
+          <span>{{ leagueStanding.position }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.points">Points</span></dt>
+        <dd>
+          <span>{{ leagueStanding.points }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.scoredGoals">Scored Goals</span></dt>
+        <dd>
+          <span>{{ leagueStanding.scoredGoals }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.lostGoals">Lost Goals</span></dt>
+        <dd>
+          <span>{{ leagueStanding.lostGoals }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.wins">Wins</span></dt>
+        <dd>
+          <span>{{ leagueStanding.wins }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.draws">Draws</span></dt>
+        <dd>
+          <span>{{ leagueStanding.draws }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.losses">Losses</span></dt>
+        <dd>
+          <span>{{ leagueStanding.losses }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.team">Team</span></dt>
+        <dd>
+          <div *ngIf="leagueStanding.team">
+            <a [routerLink]="['/team', leagueStanding.team?.id, 'view']">{{ leagueStanding.team?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.leagueStanding.league">League</span></dt>
+        <dd>
+          <div *ngIf="leagueStanding.league">
+            <a [routerLink]="['/league', leagueStanding.league?.id, 'view']">{{ leagueStanding.league?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/league-standing', leagueStanding.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

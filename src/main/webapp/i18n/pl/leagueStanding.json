@@ -1,0 +1,32 @@
+{
+  "leagueManagerApp": {
+    "leagueStanding": {
+      "home": {
+        "title": "League Standing",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj League Standing",
+        "createOrEditLabel": "Dodaj lub edytuj: League Standing",
+        "notFound": "No League Standings found"
+      },
+      "created": "Utworzono nowy obiekt typu League Standing z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu League Standing z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu League Standing z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć League Standing {{ id }}?"
+      },
+      "detail": {
+        "title": "League Standing"
+      },
+      "id": "ID",
+      "position": "Position",
+      "points": "Points",
+      "scoredGoals": "Scored Goals",
+      "lostGoals": "Lost Goals",
+      "wins": "Wins",
+      "draws": "Draws",
+      "losses": "Losses",
+      "team": "Team",
+      "league": "League"
+    }
+  }
+}

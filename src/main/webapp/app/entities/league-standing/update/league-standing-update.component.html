@@ -1,0 +1,243 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-league-standing-heading"
+        data-cy="LeagueStandingCreateUpdateHeading"
+        jhiTranslate="leagueManagerApp.leagueStanding.home.createOrEditLabel"
+      >
+        Create or edit a League Standing
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.position" for="field_position">Position</label>
+          <input type="number" class="form-control" name="position" id="field_position" data-cy="position" formControlName="position" />
+          <div *ngIf="editForm.get('position')!.invalid && (editForm.get('position')!.dirty || editForm.get('position')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('position')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('position')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 1 }"
+            >
+              This field should be at least 1.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('position')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.points" for="field_points">Points</label>
+          <input type="number" class="form-control" name="points" id="field_points" data-cy="points" formControlName="points" />
+          <div *ngIf="editForm.get('points')!.invalid && (editForm.get('points')!.dirty || editForm.get('points')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('points')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('points')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.scoredGoals" for="field_scoredGoals"
+            >Scored Goals</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="scoredGoals"
+            id="field_scoredGoals"
+            data-cy="scoredGoals"
+            formControlName="scoredGoals"
+          />
+          <div *ngIf="editForm.get('scoredGoals')!.invalid && (editForm.get('scoredGoals')!.dirty || editForm.get('scoredGoals')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('scoredGoals')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('scoredGoals')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('scoredGoals')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.lostGoals" for="field_lostGoals"
+            >Lost Goals</label
+          >
+          <input type="number" class="form-control" name="lostGoals" id="field_lostGoals" data-cy="lostGoals" formControlName="lostGoals" />
+          <div *ngIf="editForm.get('lostGoals')!.invalid && (editForm.get('lostGoals')!.dirty || editForm.get('lostGoals')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lostGoals')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lostGoals')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('lostGoals')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.wins" for="field_wins">Wins</label>
+          <input type="number" class="form-control" name="wins" id="field_wins" data-cy="wins" formControlName="wins" />
+          <div *ngIf="editForm.get('wins')!.invalid && (editForm.get('wins')!.dirty || editForm.get('wins')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('wins')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('wins')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('wins')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.draws" for="field_draws">Draws</label>
+          <input type="number" class="form-control" name="draws" id="field_draws" data-cy="draws" formControlName="draws" />
+          <div *ngIf="editForm.get('draws')!.invalid && (editForm.get('draws')!.dirty || editForm.get('draws')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('draws')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('draws')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('draws')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.losses" for="field_losses">Losses</label>
+          <input type="number" class="form-control" name="losses" id="field_losses" data-cy="losses" formControlName="losses" />
+          <div *ngIf="editForm.get('losses')!.invalid && (editForm.get('losses')!.dirty || editForm.get('losses')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('losses')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('losses')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('losses')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.team" for="field_team">Team</label>
+          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
+            <option *ngIf="!editForm.get('team')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('team')!.value?.id ? editForm.get('team')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.name }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['team'])!.invalid && (editForm.get(['team'])!.dirty || editForm.get(['team'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['team'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="leagueManagerApp.leagueStanding.league" for="field_league">League</label>
+          <select class="form-control" id="field_league" data-cy="league" name="league" formControlName="league">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="leagueOption.id === editForm.get('league')!.value?.id ? editForm.get('league')!.value : leagueOption"
+              *ngFor="let leagueOption of leaguesSharedCollection; trackBy: trackLeagueById"
+            >
+              {{ leagueOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

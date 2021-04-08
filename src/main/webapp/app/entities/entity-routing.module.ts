@@ -24,6 +24,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'leagueManagerApp.round.home.title' },
         loadChildren: () => import('./round/round.module').then(m => m.RoundModule),
       },
+      {
+        path: 'league',
+        data: { pageTitle: 'leagueManagerApp.league.home.title' },
+        loadChildren: () => import('./league/league.module').then(m => m.LeagueModule),
+      },
+      {
+        path: 'league-standing',
+        data: { pageTitle: 'leagueManagerApp.leagueStanding.home.title' },
+        loadChildren: () => import('./league-standing/league-standing.module').then(m => m.LeagueStandingModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
