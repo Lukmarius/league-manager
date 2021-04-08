@@ -11,10 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.domain.Team;
-import pl.mjaskola.app.domain.User;
 import pl.mjaskola.app.repository.TeamRepository;
 import pl.mjaskola.app.service.TeamService;
-import pl.mjaskola.app.service.UserService;
 import pl.mjaskola.app.service.dto.TeamDTO;
 import pl.mjaskola.app.service.mapper.TeamMapper;
 
@@ -28,6 +26,7 @@ public class TeamServiceImpl implements TeamService {
     private final Logger log = LoggerFactory.getLogger(TeamServiceImpl.class);
 
     private final TeamRepository teamRepository;
+
     private final TeamMapper teamMapper;
 
     public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper) {

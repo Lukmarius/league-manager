@@ -1,0 +1,25 @@
+{
+  "leagueManagerApp": {
+    "matchResult": {
+      "home": {
+        "title": "Match Result",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj Match Result",
+        "createOrEditLabel": "Dodaj lub edytuj: Match Result",
+        "notFound": "No Match Results found"
+      },
+      "created": "Utworzono nowy obiekt typu Match Result z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Match Result z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Match Result z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Match Result {{ id }}?"
+      },
+      "detail": {
+        "title": "Match Result"
+      },
+      "id": "ID",
+      "homeTeamScore": "Home Team Score",
+      "awayTeamScore": "Away Team Score"
+    }
+  }
+}

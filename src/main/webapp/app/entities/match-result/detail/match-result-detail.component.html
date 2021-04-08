@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="matchResult">
+      <h2 data-cy="matchResultDetailsHeading"><span jhiTranslate="leagueManagerApp.matchResult.detail.title">Match Result</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ matchResult.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.matchResult.homeTeamScore">Home Team Score</span></dt>
+        <dd>
+          <span>{{ matchResult.homeTeamScore }}</span>
+        </dd>
+        <dt><span jhiTranslate="leagueManagerApp.matchResult.awayTeamScore">Away Team Score</span></dt>
+        <dd>
+          <span>{{ matchResult.awayTeamScore }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/match-result', matchResult.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
