@@ -50,12 +50,12 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Team query and add missing value', () => {
         const match: IMatch = { id: 456 };
-        const homeTeam: ITeam = { id: 90211 };
+        const homeTeam: ITeam = { id: 65044 };
         match.homeTeam = homeTeam;
-        const awayTeam: ITeam = { id: 6404 };
+        const awayTeam: ITeam = { id: 41436 };
         match.awayTeam = awayTeam;
 
-        const teamCollection: ITeam[] = [{ id: 3285 }];
+        const teamCollection: ITeam[] = [{ id: 12627 }];
         spyOn(teamService, 'query').and.returnValue(of(new HttpResponse({ body: teamCollection })));
         const additionalTeams = [homeTeam, awayTeam];
         const expectedCollection: ITeam[] = [...additionalTeams, ...teamCollection];
@@ -71,10 +71,10 @@ describe('Component Tests', () => {
 
       it('Should call matchResult query and add missing value', () => {
         const match: IMatch = { id: 456 };
-        const matchResult: IMatchResult = { id: 11697 };
+        const matchResult: IMatchResult = { id: 25564 };
         match.matchResult = matchResult;
 
-        const matchResultCollection: IMatchResult[] = [{ id: 32226 }];
+        const matchResultCollection: IMatchResult[] = [{ id: 62671 }];
         spyOn(matchResultService, 'query').and.returnValue(of(new HttpResponse({ body: matchResultCollection })));
         const expectedCollection: IMatchResult[] = [matchResult, ...matchResultCollection];
         spyOn(matchResultService, 'addMatchResultToCollectionIfMissing').and.returnValue(expectedCollection);
@@ -89,10 +89,10 @@ describe('Component Tests', () => {
 
       it('Should call Round query and add missing value', () => {
         const match: IMatch = { id: 456 };
-        const round: IRound = { id: 96548 };
+        const round: IRound = { id: 40014 };
         match.round = round;
 
-        const roundCollection: IRound[] = [{ id: 53641 }];
+        const roundCollection: IRound[] = [{ id: 79214 }];
         spyOn(roundService, 'query').and.returnValue(of(new HttpResponse({ body: roundCollection })));
         const additionalRounds = [round];
         const expectedCollection: IRound[] = [...additionalRounds, ...roundCollection];
@@ -108,13 +108,13 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const match: IMatch = { id: 456 };
-        const homeTeam: ITeam = { id: 13467 };
+        const homeTeam: ITeam = { id: 97157 };
         match.homeTeam = homeTeam;
-        const awayTeam: ITeam = { id: 21093 };
+        const awayTeam: ITeam = { id: 51073 };
         match.awayTeam = awayTeam;
-        const matchResult: IMatchResult = { id: 98391 };
+        const matchResult: IMatchResult = { id: 76137 };
         match.matchResult = matchResult;
-        const round: IRound = { id: 16070 };
+        const round: IRound = { id: 58656 };
         match.round = round;
 
         activatedRoute.data = of({ match });

@@ -154,7 +154,7 @@ class MatchResourceIT {
         em.detach(updatedMatch);
 
         // Update the MatchResult with new association value
-        updatedMatch.setMatchResult();
+        updatedMatch.setMatchResult(null);
         MatchDTO updatedMatchDTO = matchMapper.toDto(updatedMatch);
         assertThat(updatedMatchDTO).isNotNull();
 

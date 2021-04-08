@@ -5,7 +5,14 @@
       "fieldType": "Integer"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "match",
+      "otherEntityName": "match",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "round"
+    }
+  ],
   "service": "serviceImpl",
   "dto": "mapstruct",
   "jpaMetamodelFiltering": true,

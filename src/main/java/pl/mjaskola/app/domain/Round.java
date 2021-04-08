@@ -1,6 +1,9 @@
 package pl.mjaskola.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,6 +25,11 @@ public class Round implements Serializable {
 
     @Column(name = "round_number")
     private Integer roundNumber;
+
+    @OneToMany(mappedBy = "round")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "homeTeam", "awayTeam", "matchResult", "round" }, allowSetters = true)
+    private Set<Match> matches = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -48,6 +56,37 @@ public class Round implements Serializable {
 
     public void setRoundNumber(Integer roundNumber) {
         this.roundNumber = roundNumber;
+    }
+
+    public Set<Match> getMatches() {
+        return this.matches;
+    }
+
+    public Round matches(Set<Match> matches) {
+        this.setMatches(matches);
+        return this;
+    }
+
+    public Round addMatch(Match match) {
+        this.matches.add(match);
+        match.setRound(this);
+        return this;
+    }
+
+    public Round removeMatch(Match match) {
+        this.matches.remove(match);
+        match.setRound(null);
+        return this;
+    }
+
+    public void setMatches(Set<Match> matches) {
+        if (this.matches != null) {
+            this.matches.forEach(i -> i.setRound(null));
+        }
+        if (matches != null) {
+            matches.forEach(i -> i.setRound(this));
+        }
+        this.matches = matches;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

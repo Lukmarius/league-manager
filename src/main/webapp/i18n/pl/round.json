@@ -18,7 +18,8 @@
         "title": "Round"
       },
       "id": "ID",
-      "roundNumber": "Round Number"
+      "roundNumber": "Round Number",
+      "match": "Match"
     }
   }
 }

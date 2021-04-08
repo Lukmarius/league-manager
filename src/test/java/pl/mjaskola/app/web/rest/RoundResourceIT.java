@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.IntegrationTest;
+import pl.mjaskola.app.domain.Match;
 import pl.mjaskola.app.domain.Round;
 import pl.mjaskola.app.repository.RoundRepository;
 import pl.mjaskola.app.service.criteria.RoundCriteria;
@@ -269,6 +270,25 @@ class RoundResourceIT {
 
         // Get all the roundList where roundNumber is greater than SMALLER_ROUND_NUMBER
         defaultRoundShouldBeFound("roundNumber.greaterThan=" + SMALLER_ROUND_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllRoundsByMatchIsEqualToSomething() throws Exception {
+        // Initialize the database
+        roundRepository.saveAndFlush(round);
+        Match match = MatchResourceIT.createEntity(em);
+        em.persist(match);
+        em.flush();
+        round.addMatch(match);
+        roundRepository.saveAndFlush(round);
+        Long matchId = match.getId();
+
+        // Get all the roundList where match equals to matchId
+        defaultRoundShouldBeFound("matchId.equals=" + matchId);
+
+        // Get all the roundList where match equals to (matchId + 1)
+        defaultRoundShouldNotBeFound("matchId.equals=" + (matchId + 1));
     }
 
     /**

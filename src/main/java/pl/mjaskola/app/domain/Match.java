@@ -33,6 +33,7 @@ public class Match implements Serializable {
     private MatchResult matchResult;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "matches" }, allowSetters = true)
     private Round round;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

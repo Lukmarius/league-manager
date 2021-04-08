@@ -89,6 +89,12 @@ public class RoundQueryService extends QueryService<Round> {
             if (criteria.getRoundNumber() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRoundNumber(), Round_.roundNumber));
             }
+            if (criteria.getMatchId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getMatchId(), root -> root.join(Round_.matches, JoinType.LEFT).get(Match_.id))
+                    );
+            }
         }
         return specification;
     }

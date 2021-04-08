@@ -28,11 +28,14 @@ public class RoundCriteria implements Serializable, Criteria {
 
     private IntegerFilter roundNumber;
 
+    private LongFilter matchId;
+
     public RoundCriteria() {}
 
     public RoundCriteria(RoundCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.roundNumber = other.roundNumber == null ? null : other.roundNumber.copy();
+        this.matchId = other.matchId == null ? null : other.matchId.copy();
     }
 
     @Override
@@ -70,6 +73,21 @@ public class RoundCriteria implements Serializable, Criteria {
         this.roundNumber = roundNumber;
     }
 
+    public LongFilter getMatchId() {
+        return matchId;
+    }
+
+    public LongFilter matchId() {
+        if (matchId == null) {
+            matchId = new LongFilter();
+        }
+        return matchId;
+    }
+
+    public void setMatchId(LongFilter matchId) {
+        this.matchId = matchId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,12 +97,12 @@ public class RoundCriteria implements Serializable, Criteria {
             return false;
         }
         final RoundCriteria that = (RoundCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(roundNumber, that.roundNumber);
+        return Objects.equals(id, that.id) && Objects.equals(roundNumber, that.roundNumber) && Objects.equals(matchId, that.matchId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roundNumber);
+        return Objects.hash(id, roundNumber, matchId);
     }
 
     // prettier-ignore
@@ -93,6 +111,7 @@ public class RoundCriteria implements Serializable, Criteria {
         return "RoundCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (roundNumber != null ? "roundNumber=" + roundNumber + ", " : "") +
+            (matchId != null ? "matchId=" + matchId + ", " : "") +
             "}";
     }
 }

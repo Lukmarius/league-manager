@@ -139,7 +139,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Match to an array', () => {
-          const matchArray: IMatch[] = [{ id: 123 }, { id: 456 }, { id: 41085 }];
+          const matchArray: IMatch[] = [{ id: 123 }, { id: 456 }, { id: 75871 }];
           const matchCollection: IMatch[] = [{ id: 123 }];
           expectedResult = service.addMatchToCollectionIfMissing(matchCollection, ...matchArray);
           expect(expectedResult).toHaveLength(3);
