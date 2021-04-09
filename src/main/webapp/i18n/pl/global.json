@@ -6,13 +6,13 @@
       "home": "Strona domowa",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
-        "main": "Encje",
-        "team": "Team",
-        "matchResult": "Match Result",
-        "match": "Match",
-        "round": "Round",
-        "league": "League",
-        "leagueStanding": "League Standing",
+        "main": "Przejdź do",
+        "team": "Zespoły",
+        "matchResult": "Wyniki",
+        "match": "Mecze",
+        "round": "Kolejki ligowe",
+        "league": "Ligi",
+        "leagueStanding": "Tabele ligowe",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -142,5 +142,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "To jest stopka"
+  "footer": "~by mjaskola"
 }

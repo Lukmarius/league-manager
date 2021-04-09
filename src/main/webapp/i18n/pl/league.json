@@ -2,25 +2,25 @@
   "leagueManagerApp": {
     "league": {
       "home": {
-        "title": "League",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Dodaj League",
-        "createOrEditLabel": "Dodaj lub edytuj: League",
-        "notFound": "No Leagues found"
+        "title": "Liga",
+        "refreshListLabel": "Odśwież listę",
+        "createLabel": "Dodaj Liga",
+        "createOrEditLabel": "Dodaj lub edytuj: Liga",
+        "notFound": "Nie znaleziono ligi"
       },
-      "created": "Utworzono nowy obiekt typu League z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu League z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu League z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Liga z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Liga z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Liga z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć League {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Ligę {{ id }}?"
       },
       "detail": {
-        "title": "League"
+        "title": "Liga"
       },
       "id": "ID",
       "name": "Name",
       "round": "Round",
-      "leagueStanding": "League Standing"
+      "leagueStanding": "Ligowa Tabela"
     }
   }
 }

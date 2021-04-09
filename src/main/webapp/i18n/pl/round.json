@@ -2,25 +2,25 @@
   "leagueManagerApp": {
     "round": {
       "home": {
-        "title": "Round",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Dodaj Round",
-        "createOrEditLabel": "Dodaj lub edytuj: Round",
-        "notFound": "No Rounds found"
+        "title": "Kolejka",
+        "refreshListLabel": "Odśwież listę",
+        "createLabel": "Dodaj Kolejka",
+        "createOrEditLabel": "Dodaj lub edytuj: Kolejka",
+        "notFound": "Nie znaleziono kolejki"
       },
-      "created": "Utworzono nowy obiekt typu Round z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Round z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Round z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Kolejka z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Kolejka z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Kolejka z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Round {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Kolejka {{ id }}?"
       },
       "detail": {
-        "title": "Round"
+        "title": "Kolejka"
       },
       "id": "ID",
-      "roundNumber": "Round Number",
-      "match": "Match",
-      "league": "League"
+      "roundNumber": "Numer kolejki",
+      "match": "Mecz",
+      "league": "Liga"
     }
   }
 }
