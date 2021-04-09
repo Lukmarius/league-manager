@@ -25,6 +25,7 @@
     <include file="config/liquibase/changelog/20210405224728_added_entity_constraints_Team.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210408002947_added_entity_constraints_Match.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210408234102_added_entity_constraints_LeagueStanding.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210408224416_added_entity_constraints_Round.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

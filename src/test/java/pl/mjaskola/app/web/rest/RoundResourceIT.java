@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.IntegrationTest;
+import pl.mjaskola.app.domain.League;
 import pl.mjaskola.app.domain.Match;
 import pl.mjaskola.app.domain.Round;
 import pl.mjaskola.app.repository.RoundRepository;
@@ -289,6 +290,25 @@ class RoundResourceIT {
 
         // Get all the roundList where match equals to (matchId + 1)
         defaultRoundShouldNotBeFound("matchId.equals=" + (matchId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllRoundsByLeagueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        roundRepository.saveAndFlush(round);
+        League league = LeagueResourceIT.createEntity(em);
+        em.persist(league);
+        em.flush();
+        round.setLeague(league);
+        roundRepository.saveAndFlush(round);
+        Long leagueId = league.getId();
+
+        // Get all the roundList where league equals to leagueId
+        defaultRoundShouldBeFound("leagueId.equals=" + leagueId);
+
+        // Get all the roundList where league equals to (leagueId + 1)
+        defaultRoundShouldNotBeFound("leagueId.equals=" + (leagueId + 1));
     }
 
     /**

@@ -31,6 +31,9 @@ public class Round implements Serializable {
     @JsonIgnoreProperties(value = { "homeTeam", "awayTeam", "matchResult", "round" }, allowSetters = true)
     private Set<Match> matches = new HashSet<>();
 
+    @ManyToOne
+    private League league;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -87,6 +90,19 @@ public class Round implements Serializable {
             matches.forEach(i -> i.setRound(this));
         }
         this.matches = matches;
+    }
+
+    public League getLeague() {
+        return this.league;
+    }
+
+    public Round league(League league) {
+        this.setLeague(league);
+        return this;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

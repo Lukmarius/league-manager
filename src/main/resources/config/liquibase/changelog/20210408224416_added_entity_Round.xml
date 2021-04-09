@@ -17,6 +17,9 @@
             <column name="round_number" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="league_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

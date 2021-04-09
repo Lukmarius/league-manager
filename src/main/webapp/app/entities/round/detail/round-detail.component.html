@@ -18,6 +18,12 @@
         <dd>
           <span>{{ round.roundNumber }}</span>
         </dd>
+        <dt><span jhiTranslate="leagueManagerApp.round.league">League</span></dt>
+        <dd>
+          <div *ngIf="round.league">
+            <a [routerLink]="['/league', round.league?.id, 'view']">{{ round.league?.name }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

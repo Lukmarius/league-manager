@@ -9,6 +9,8 @@ import { of, Subject } from 'rxjs';
 
 import { RoundService } from '../service/round.service';
 import { IRound, Round } from '../round.model';
+import { ILeague } from 'app/entities/league/league.model';
+import { LeagueService } from 'app/entities/league/service/league.service';
 
 import { RoundUpdateComponent } from './round-update.component';
 
@@ -18,6 +20,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<RoundUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let roundService: RoundService;
+    let leagueService: LeagueService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,18 +34,41 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(RoundUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       roundService = TestBed.inject(RoundService);
+      leagueService = TestBed.inject(LeagueService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
+      it('Should call League query and add missing value', () => {
+        const round: IRound = { id: 456 };
+        const league: ILeague = { id: 1786 };
+        round.league = league;
+
+        const leagueCollection: ILeague[] = [{ id: 78451 }];
+        spyOn(leagueService, 'query').and.returnValue(of(new HttpResponse({ body: leagueCollection })));
+        const additionalLeagues = [league];
+        const expectedCollection: ILeague[] = [...additionalLeagues, ...leagueCollection];
+        spyOn(leagueService, 'addLeagueToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ round });
+        comp.ngOnInit();
+
+        expect(leagueService.query).toHaveBeenCalled();
+        expect(leagueService.addLeagueToCollectionIfMissing).toHaveBeenCalledWith(leagueCollection, ...additionalLeagues);
+        expect(comp.leaguesSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const round: IRound = { id: 456 };
+        const league: ILeague = { id: 19101 };
+        round.league = league;
 
         activatedRoute.data = of({ round });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(round));
+        expect(comp.leaguesSharedCollection).toContain(league);
       });
     });
 
@@ -107,6 +133,16 @@ describe('Component Tests', () => {
         expect(roundService.update).toHaveBeenCalledWith(round);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('Tracking relationships identifiers', () => {
+      describe('trackLeagueById', () => {
+        it('Should return tracked League primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackLeagueById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
       });
     });
   });

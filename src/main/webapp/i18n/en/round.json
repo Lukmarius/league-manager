@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "roundNumber": "Round Number",
-      "match": "Match"
+      "match": "Match",
+      "league": "League"
     }
   }
 }

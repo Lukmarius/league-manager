@@ -89,10 +89,10 @@ describe('Component Tests', () => {
 
       it('Should call Round query and add missing value', () => {
         const match: IMatch = { id: 456 };
-        const round: IRound = { id: 96548 };
+        const round: IRound = { id: 40014 };
         match.round = round;
 
-        const roundCollection: IRound[] = [{ id: 53641 }];
+        const roundCollection: IRound[] = [{ id: 79214 }];
         spyOn(roundService, 'query').and.returnValue(of(new HttpResponse({ body: roundCollection })));
         const additionalRounds = [round];
         const expectedCollection: IRound[] = [...additionalRounds, ...roundCollection];
@@ -114,7 +114,7 @@ describe('Component Tests', () => {
         match.awayTeam = awayTeam;
         const matchResult: IMatchResult = { id: 76137 };
         match.matchResult = matchResult;
-        const round: IRound = { id: 16070 };
+        const round: IRound = { id: 58656 };
         match.round = round;
 
         activatedRoute.data = of({ match });

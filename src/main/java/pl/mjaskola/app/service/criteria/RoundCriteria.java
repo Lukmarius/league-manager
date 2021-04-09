@@ -30,12 +30,15 @@ public class RoundCriteria implements Serializable, Criteria {
 
     private LongFilter matchId;
 
+    private LongFilter leagueId;
+
     public RoundCriteria() {}
 
     public RoundCriteria(RoundCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.roundNumber = other.roundNumber == null ? null : other.roundNumber.copy();
         this.matchId = other.matchId == null ? null : other.matchId.copy();
+        this.leagueId = other.leagueId == null ? null : other.leagueId.copy();
     }
 
     @Override
@@ -88,6 +91,21 @@ public class RoundCriteria implements Serializable, Criteria {
         this.matchId = matchId;
     }
 
+    public LongFilter getLeagueId() {
+        return leagueId;
+    }
+
+    public LongFilter leagueId() {
+        if (leagueId == null) {
+            leagueId = new LongFilter();
+        }
+        return leagueId;
+    }
+
+    public void setLeagueId(LongFilter leagueId) {
+        this.leagueId = leagueId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -97,12 +115,17 @@ public class RoundCriteria implements Serializable, Criteria {
             return false;
         }
         final RoundCriteria that = (RoundCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(roundNumber, that.roundNumber) && Objects.equals(matchId, that.matchId);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(roundNumber, that.roundNumber) &&
+            Objects.equals(matchId, that.matchId) &&
+            Objects.equals(leagueId, that.leagueId)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roundNumber, matchId);
+        return Objects.hash(id, roundNumber, matchId, leagueId);
     }
 
     // prettier-ignore
@@ -112,6 +135,7 @@ public class RoundCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (roundNumber != null ? "roundNumber=" + roundNumber + ", " : "") +
             (matchId != null ? "matchId=" + matchId + ", " : "") +
+            (leagueId != null ? "leagueId=" + leagueId + ", " : "") +
             "}";
     }
 }

@@ -11,6 +11,12 @@
       "otherEntityName": "match",
       "relationshipType": "one-to-many",
       "otherEntityRelationshipName": "round"
+    },
+    {
+      "relationshipName": "league",
+      "otherEntityName": "league",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name"
     }
   ],
   "service": "serviceImpl",

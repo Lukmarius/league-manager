@@ -12,6 +12,8 @@ public class RoundDTO implements Serializable {
 
     private Integer roundNumber;
 
+    private LeagueDTO league;
+
     public Long getId() {
         return id;
     }
@@ -26,6 +28,14 @@ public class RoundDTO implements Serializable {
 
     public void setRoundNumber(Integer roundNumber) {
         this.roundNumber = roundNumber;
+    }
+
+    public LeagueDTO getLeague() {
+        return league;
+    }
+
+    public void setLeague(LeagueDTO league) {
+        this.league = league;
     }
 
     @Override
@@ -55,6 +65,7 @@ public class RoundDTO implements Serializable {
         return "RoundDTO{" +
             "id=" + getId() +
             ", roundNumber=" + getRoundNumber() +
+            ", league=" + getLeague() +
             "}";
     }
 }
