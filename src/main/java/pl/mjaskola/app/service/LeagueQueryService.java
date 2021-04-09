@@ -89,6 +89,21 @@ public class LeagueQueryService extends QueryService<League> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), League_.name));
             }
+            if (criteria.getRoundId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getRoundId(), root -> root.join(League_.rounds, JoinType.LEFT).get(Round_.id))
+                    );
+            }
+            if (criteria.getLeagueStandingId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getLeagueStandingId(),
+                            root -> root.join(League_.leagueStandings, JoinType.LEFT).get(LeagueStanding_.id)
+                        )
+                    );
+            }
         }
         return specification;
     }

@@ -6,7 +6,20 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "round",
+      "otherEntityName": "round",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "league"
+    },
+    {
+      "relationshipName": "leagueStanding",
+      "otherEntityName": "leagueStanding",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "league"
+    }
+  ],
   "service": "serviceImpl",
   "dto": "mapstruct",
   "jpaMetamodelFiltering": true,

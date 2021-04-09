@@ -1,6 +1,9 @@
 package pl.mjaskola.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -24,6 +27,16 @@ public class League implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "league")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "matches", "league" }, allowSetters = true)
+    private Set<Round> rounds = new HashSet<>();
+
+    @OneToMany(mappedBy = "league")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "team", "league" }, allowSetters = true)
+    private Set<LeagueStanding> leagueStandings = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -50,6 +63,68 @@ public class League implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Round> getRounds() {
+        return this.rounds;
+    }
+
+    public League rounds(Set<Round> rounds) {
+        this.setRounds(rounds);
+        return this;
+    }
+
+    public League addRound(Round round) {
+        this.rounds.add(round);
+        round.setLeague(this);
+        return this;
+    }
+
+    public League removeRound(Round round) {
+        this.rounds.remove(round);
+        round.setLeague(null);
+        return this;
+    }
+
+    public void setRounds(Set<Round> rounds) {
+        if (this.rounds != null) {
+            this.rounds.forEach(i -> i.setLeague(null));
+        }
+        if (rounds != null) {
+            rounds.forEach(i -> i.setLeague(this));
+        }
+        this.rounds = rounds;
+    }
+
+    public Set<LeagueStanding> getLeagueStandings() {
+        return this.leagueStandings;
+    }
+
+    public League leagueStandings(Set<LeagueStanding> leagueStandings) {
+        this.setLeagueStandings(leagueStandings);
+        return this;
+    }
+
+    public League addLeagueStanding(LeagueStanding leagueStanding) {
+        this.leagueStandings.add(leagueStanding);
+        leagueStanding.setLeague(this);
+        return this;
+    }
+
+    public League removeLeagueStanding(LeagueStanding leagueStanding) {
+        this.leagueStandings.remove(leagueStanding);
+        leagueStanding.setLeague(null);
+        return this;
+    }
+
+    public void setLeagueStandings(Set<LeagueStanding> leagueStandings) {
+        if (this.leagueStandings != null) {
+            this.leagueStandings.forEach(i -> i.setLeague(null));
+        }
+        if (leagueStandings != null) {
+            leagueStandings.forEach(i -> i.setLeague(this));
+        }
+        this.leagueStandings = leagueStandings;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

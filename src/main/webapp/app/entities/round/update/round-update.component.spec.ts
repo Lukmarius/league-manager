@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call League query and add missing value', () => {
         const round: IRound = { id: 456 };
-        const league: ILeague = { id: 1786 };
+        const league: ILeague = { id: 81930 };
         round.league = league;
 
-        const leagueCollection: ILeague[] = [{ id: 78451 }];
+        const leagueCollection: ILeague[] = [{ id: 64552 }];
         spyOn(leagueService, 'query').and.returnValue(of(new HttpResponse({ body: leagueCollection })));
         const additionalLeagues = [league];
         const expectedCollection: ILeague[] = [...additionalLeagues, ...leagueCollection];
@@ -61,7 +61,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const round: IRound = { id: 456 };
-        const league: ILeague = { id: 19101 };
+        const league: ILeague = { id: 66305 };
         round.league = league;
 
         activatedRoute.data = of({ round });

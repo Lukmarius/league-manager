@@ -18,7 +18,9 @@
         "title": "League"
       },
       "id": "ID",
-      "name": "Name"
+      "name": "Name",
+      "round": "Round",
+      "leagueStanding": "League Standing"
     }
   }
 }

@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mjaskola.app.IntegrationTest;
 import pl.mjaskola.app.domain.League;
+import pl.mjaskola.app.domain.LeagueStanding;
+import pl.mjaskola.app.domain.Round;
 import pl.mjaskola.app.repository.LeagueRepository;
 import pl.mjaskola.app.service.criteria.LeagueCriteria;
 import pl.mjaskola.app.service.dto.LeagueDTO;
@@ -260,6 +262,44 @@ class LeagueResourceIT {
 
         // Get all the leagueList where name does not contain UPDATED_NAME
         defaultLeagueShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllLeaguesByRoundIsEqualToSomething() throws Exception {
+        // Initialize the database
+        leagueRepository.saveAndFlush(league);
+        Round round = RoundResourceIT.createEntity(em);
+        em.persist(round);
+        em.flush();
+        league.addRound(round);
+        leagueRepository.saveAndFlush(league);
+        Long roundId = round.getId();
+
+        // Get all the leagueList where round equals to roundId
+        defaultLeagueShouldBeFound("roundId.equals=" + roundId);
+
+        // Get all the leagueList where round equals to (roundId + 1)
+        defaultLeagueShouldNotBeFound("roundId.equals=" + (roundId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllLeaguesByLeagueStandingIsEqualToSomething() throws Exception {
+        // Initialize the database
+        leagueRepository.saveAndFlush(league);
+        LeagueStanding leagueStanding = LeagueStandingResourceIT.createEntity(em);
+        em.persist(leagueStanding);
+        em.flush();
+        league.addLeagueStanding(leagueStanding);
+        leagueRepository.saveAndFlush(league);
+        Long leagueStandingId = leagueStanding.getId();
+
+        // Get all the leagueList where leagueStanding equals to leagueStandingId
+        defaultLeagueShouldBeFound("leagueStandingId.equals=" + leagueStandingId);
+
+        // Get all the leagueList where leagueStanding equals to (leagueStandingId + 1)
+        defaultLeagueShouldNotBeFound("leagueStandingId.equals=" + (leagueStandingId + 1));
     }
 
     /**

@@ -32,6 +32,7 @@ public class Round implements Serializable {
     private Set<Match> matches = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "rounds", "leagueStandings" }, allowSetters = true)
     private League league;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

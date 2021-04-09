@@ -28,11 +28,17 @@ public class LeagueCriteria implements Serializable, Criteria {
 
     private StringFilter name;
 
+    private LongFilter roundId;
+
+    private LongFilter leagueStandingId;
+
     public LeagueCriteria() {}
 
     public LeagueCriteria(LeagueCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
+        this.roundId = other.roundId == null ? null : other.roundId.copy();
+        this.leagueStandingId = other.leagueStandingId == null ? null : other.leagueStandingId.copy();
     }
 
     @Override
@@ -70,6 +76,36 @@ public class LeagueCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
+    public LongFilter getRoundId() {
+        return roundId;
+    }
+
+    public LongFilter roundId() {
+        if (roundId == null) {
+            roundId = new LongFilter();
+        }
+        return roundId;
+    }
+
+    public void setRoundId(LongFilter roundId) {
+        this.roundId = roundId;
+    }
+
+    public LongFilter getLeagueStandingId() {
+        return leagueStandingId;
+    }
+
+    public LongFilter leagueStandingId() {
+        if (leagueStandingId == null) {
+            leagueStandingId = new LongFilter();
+        }
+        return leagueStandingId;
+    }
+
+    public void setLeagueStandingId(LongFilter leagueStandingId) {
+        this.leagueStandingId = leagueStandingId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,12 +115,17 @@ public class LeagueCriteria implements Serializable, Criteria {
             return false;
         }
         final LeagueCriteria that = (LeagueCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(name, that.name) &&
+            Objects.equals(roundId, that.roundId) &&
+            Objects.equals(leagueStandingId, that.leagueStandingId)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, roundId, leagueStandingId);
     }
 
     // prettier-ignore
@@ -93,6 +134,8 @@ public class LeagueCriteria implements Serializable, Criteria {
         return "LeagueCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
+            (roundId != null ? "roundId=" + roundId + ", " : "") +
+            (leagueStandingId != null ? "leagueStandingId=" + leagueStandingId + ", " : "") +
             "}";
     }
 }

@@ -65,10 +65,10 @@ describe('Component Tests', () => {
 
       it('Should call League query and add missing value', () => {
         const leagueStanding: ILeagueStanding = { id: 456 };
-        const league: ILeague = { id: 81930 };
+        const league: ILeague = { id: 17238 };
         leagueStanding.league = league;
 
-        const leagueCollection: ILeague[] = [{ id: 64552 }];
+        const leagueCollection: ILeague[] = [{ id: 48819 }];
         spyOn(leagueService, 'query').and.returnValue(of(new HttpResponse({ body: leagueCollection })));
         const additionalLeagues = [league];
         const expectedCollection: ILeague[] = [...additionalLeagues, ...leagueCollection];
@@ -86,7 +86,7 @@ describe('Component Tests', () => {
         const leagueStanding: ILeagueStanding = { id: 456 };
         const team: ITeam = { id: 54534 };
         leagueStanding.team = team;
-        const league: ILeague = { id: 66305 };
+        const league: ILeague = { id: 16230 };
         leagueStanding.league = league;
 
         activatedRoute.data = of({ leagueStanding });

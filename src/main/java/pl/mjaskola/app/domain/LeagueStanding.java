@@ -62,6 +62,7 @@ public class LeagueStanding implements Serializable {
     private Team team;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "rounds", "leagueStandings" }, allowSetters = true)
     private League league;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
