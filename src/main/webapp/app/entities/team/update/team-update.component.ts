@@ -22,6 +22,7 @@ export class TeamUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [],
+    description: [],
     users: [],
   });
 
@@ -92,6 +93,7 @@ export class TeamUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: team.id,
       name: team.name,
+      description: team.description,
       users: team.users,
     });
 
@@ -111,6 +113,7 @@ export class TeamUpdateComponent implements OnInit {
       ...new Team(),
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
+      description: this.editForm.get(['description'])!.value,
       users: this.editForm.get(['users'])!.value,
     };
   }

@@ -18,6 +18,10 @@
         <dd>
           <span>{{ team.name }}</span>
         </dd>
+        <dt><span jhiTranslate="leagueManagerApp.team.description">Description</span></dt>
+        <dd>
+          <span>{{ team.description }}</span>
+        </dd>
         <dt><span jhiTranslate="leagueManagerApp.team.user">User</span></dt>
         <dd>
           <span *ngFor="let user of team.users; let last = last"> {{ user.login }}{{ last ? '' : ', ' }} </span>

@@ -28,6 +28,8 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private StringFilter name;
 
+    private StringFilter description;
+
     private LongFilter userId;
 
     public TeamCriteria() {}
@@ -35,6 +37,7 @@ public class TeamCriteria implements Serializable, Criteria {
     public TeamCriteria(TeamCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
+        this.description = other.description == null ? null : other.description.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
     }
 
@@ -73,6 +76,21 @@ public class TeamCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public StringFilter description() {
+        if (description == null) {
+            description = new StringFilter();
+        }
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
+    }
+
     public LongFilter getUserId() {
         return userId;
     }
@@ -97,12 +115,17 @@ public class TeamCriteria implements Serializable, Criteria {
             return false;
         }
         final TeamCriteria that = (TeamCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(userId, that.userId);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(name, that.name) &&
+            Objects.equals(description, that.description) &&
+            Objects.equals(userId, that.userId)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, userId);
+        return Objects.hash(id, name, description, userId);
     }
 
     // prettier-ignore
@@ -111,6 +134,7 @@ public class TeamCriteria implements Serializable, Criteria {
         return "TeamCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
             (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }

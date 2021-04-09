@@ -34,6 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="leagueManagerApp.team.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.team.description">Description</span></th>
           <th scope="col"><span jhiTranslate="leagueManagerApp.team.user">User</span></th>
           <th scope="col"></th>
         </tr>
@@ -44,6 +45,7 @@
             <a [routerLink]="['/team', team.id, 'view']">{{ team.id }}</a>
           </td>
           <td>{{ team.name }}</td>
+          <td>{{ team.description }}</td>
           <td>
             <span *ngFor="let user of team.users; let last = last"> {{ user.login }}{{ last ? '' : ', ' }} </span>
           </td>

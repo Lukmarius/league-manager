@@ -14,6 +14,8 @@ public class TeamDTO implements Serializable {
 
     private String name;
 
+    private String description;
+
     private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
@@ -30,6 +32,14 @@ public class TeamDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<UserDTO> getUsers() {
@@ -67,6 +77,7 @@ public class TeamDTO implements Serializable {
         return "TeamDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
             ", users=" + getUsers() +
             "}";
     }

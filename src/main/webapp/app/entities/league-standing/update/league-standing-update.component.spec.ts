@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Team query and add missing value', () => {
         const leagueStanding: ILeagueStanding = { id: 456 };
-        const team: ITeam = { id: 53574 };
+        const team: ITeam = { id: 58730 };
         leagueStanding.team = team;
 
-        const teamCollection: ITeam[] = [{ id: 58730 }];
+        const teamCollection: ITeam[] = [{ id: 54534 }];
         spyOn(teamService, 'query').and.returnValue(of(new HttpResponse({ body: teamCollection })));
         const additionalTeams = [team];
         const expectedCollection: ITeam[] = [...additionalTeams, ...teamCollection];
@@ -65,10 +65,10 @@ describe('Component Tests', () => {
 
       it('Should call League query and add missing value', () => {
         const leagueStanding: ILeagueStanding = { id: 456 };
-        const league: ILeague = { id: 17238 };
+        const league: ILeague = { id: 81930 };
         leagueStanding.league = league;
 
-        const leagueCollection: ILeague[] = [{ id: 48819 }];
+        const leagueCollection: ILeague[] = [{ id: 64552 }];
         spyOn(leagueService, 'query').and.returnValue(of(new HttpResponse({ body: leagueCollection })));
         const additionalLeagues = [league];
         const expectedCollection: ILeague[] = [...additionalLeagues, ...leagueCollection];
@@ -84,9 +84,9 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const leagueStanding: ILeagueStanding = { id: 456 };
-        const team: ITeam = { id: 54534 };
+        const team: ITeam = { id: 31069 };
         leagueStanding.team = team;
-        const league: ILeague = { id: 16230 };
+        const league: ILeague = { id: 66305 };
         leagueStanding.league = league;
 
         activatedRoute.data = of({ leagueStanding });
