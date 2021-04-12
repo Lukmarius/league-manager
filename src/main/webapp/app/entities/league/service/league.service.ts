@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ILeague, getLeagueIdentifier } from '../league.model';
+import { ILeagueRequest } from 'app/entities/league/league-request.model';
 
 export type EntityResponseType = HttpResponse<ILeague>;
 export type EntityArrayResponseType = HttpResponse<ILeague[]>;
@@ -16,8 +17,8 @@ export class LeagueService {
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  create(league: ILeague): Observable<EntityResponseType> {
-    return this.http.post<ILeague>(this.resourceUrl, league, { observe: 'response' });
+  create(league: ILeagueRequest): Observable<EntityResponseType> {
+    return this.http.post<ILeague>(`${this.resourceUrl}/create`, league, { observe: 'response' });
   }
 
   update(league: ILeague): Observable<EntityResponseType> {

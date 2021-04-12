@@ -10,6 +10,5 @@ import pl.mjaskola.app.service.dto.LeagueStandingDTO;
 @Mapper(componentModel = "spring", uses = { TeamMapper.class, LeagueMapper.class })
 public interface LeagueStandingMapper extends EntityMapper<LeagueStandingDTO, LeagueStanding> {
     @Mapping(target = "team", source = "team", qualifiedByName = "name")
-    @Mapping(target = "league", source = "league", qualifiedByName = "name")
     LeagueStandingDTO toDto(LeagueStanding s);
 }

@@ -2,6 +2,7 @@ package pl.mjaskola.app.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link pl.mjaskola.app.domain.Round} entity.
@@ -12,7 +13,7 @@ public class RoundDTO implements Serializable {
 
     private Integer roundNumber;
 
-    private LeagueDTO league;
+    private Set<MatchDTO> matches;
 
     public Long getId() {
         return id;
@@ -28,14 +29,6 @@ public class RoundDTO implements Serializable {
 
     public void setRoundNumber(Integer roundNumber) {
         this.roundNumber = roundNumber;
-    }
-
-    public LeagueDTO getLeague() {
-        return league;
-    }
-
-    public void setLeague(LeagueDTO league) {
-        this.league = league;
     }
 
     @Override
@@ -65,7 +58,14 @@ public class RoundDTO implements Serializable {
         return "RoundDTO{" +
             "id=" + getId() +
             ", roundNumber=" + getRoundNumber() +
-            ", league=" + getLeague() +
             "}";
+    }
+
+    public Set<MatchDTO> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(Set<MatchDTO> matches) {
+        this.matches = matches;
     }
 }

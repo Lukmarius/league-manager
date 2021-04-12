@@ -3,10 +3,13 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { ILeague, League } from '../league.model';
 import { LeagueService } from '../service/league.service';
+import { ITeam } from 'app/entities/team/team.model';
+import { TeamService } from 'app/entities/team/service/team.service';
+import { ILeagueRequest, LeagueRequest } from 'app/entities/league/league-request.model';
 
 @Component({
   selector: 'jhi-league-update',
@@ -18,13 +21,21 @@ export class LeagueUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required]],
+    teams: [],
   });
+  teamsSharedCollection: ITeam[] = [];
 
-  constructor(protected leagueService: LeagueService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected leagueService: LeagueService,
+    protected teamService: TeamService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ league }) => {
       this.updateForm(league);
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -38,8 +49,22 @@ export class LeagueUpdateComponent implements OnInit {
     if (league.id !== undefined) {
       this.subscribeToSaveResponse(this.leagueService.update(league));
     } else {
-      this.subscribeToSaveResponse(this.leagueService.create(league));
+      const request = this.createLeagueRequestFromForm();
+      this.subscribeToSaveResponse(this.leagueService.create(request));
     }
+  }
+
+  getSelectedTeam(option: ITeam, selectedVals: ITeam[]): ITeam {
+    for (const selectedVal of selectedVals) {
+      if (option.id === selectedVal.id) {
+        return selectedVal;
+      }
+    }
+    return option;
+  }
+
+  trackTeamById(index: number, item: ITeam): number | undefined {
+    return item.id;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ILeague>>): void {
@@ -74,5 +99,22 @@ export class LeagueUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
     };
+  }
+
+  protected createLeagueRequestFromForm(): ILeagueRequest {
+    return {
+      ...new League(),
+      id: this.editForm.get(['id'])!.value,
+      name: this.editForm.get(['name'])!.value,
+      teams: this.editForm.get(['teams'])!.value,
+    };
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.teamService
+      .query()
+      .pipe(map((res: HttpResponse<ITeam[]>) => res.body ?? []))
+      .pipe(map((teams: ITeam[]) => this.teamService.addTeamToCollectionIfMissing(teams, ...(this.editForm.get('teams')!.value ?? []))))
+      .subscribe((teams: ITeam[]) => (this.teamsSharedCollection = teams));
   }
 }

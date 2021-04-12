@@ -26,7 +26,7 @@ public class Round implements Serializable {
     @Column(name = "round_number")
     private Integer roundNumber;
 
-    @OneToMany(mappedBy = "round")
+    @OneToMany(mappedBy = "round", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "homeTeam", "awayTeam", "matchResult", "round" }, allowSetters = true)
     private Set<Match> matches = new HashSet<>();

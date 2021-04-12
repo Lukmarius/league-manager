@@ -17,6 +17,8 @@ public class Match implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @ManyToOne
@@ -27,9 +29,8 @@ public class Match implements Serializable {
     @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
     private Team awayTeam;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "id", nullable = true)
     private MatchResult matchResult;
 
     @ManyToOne
@@ -87,6 +88,9 @@ public class Match implements Serializable {
 
     public void setMatchResult(MatchResult matchResult) {
         this.matchResult = matchResult;
+        if (matchResult != null) {
+            this.matchResult.setMatch(this);
+        }
     }
 
     public Round getRound() {

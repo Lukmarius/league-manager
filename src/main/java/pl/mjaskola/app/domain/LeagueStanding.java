@@ -65,6 +65,16 @@ public class LeagueStanding implements Serializable {
     @JsonIgnoreProperties(value = { "rounds", "leagueStandings" }, allowSetters = true)
     private League league;
 
+    public LeagueStanding() {
+        this.position = 1;
+        this.points = 0;
+        this.scoredGoals = 0;
+        this.lostGoals = 0;
+        this.wins = 0;
+        this.draws = 0;
+        this.losses = 0;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;

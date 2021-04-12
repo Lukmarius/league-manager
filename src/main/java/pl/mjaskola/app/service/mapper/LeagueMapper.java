@@ -13,5 +13,7 @@ public interface LeagueMapper extends EntityMapper<LeagueDTO, League> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
+    @Mapping(target = "rounds", source = "rounds")
+    @Mapping(target = "leagueStandings", source = "leagueStandings")
     LeagueDTO toDtoName(League league);
 }

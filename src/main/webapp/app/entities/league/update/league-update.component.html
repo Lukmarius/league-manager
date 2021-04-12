@@ -22,6 +22,18 @@
             </small>
           </div>
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="leagueManagerApp.team.home.title" for="field_teams">Teams</label>
+          <select class="form-control" id="field_teams" data-cy="team" multiple name="teams" formControlName="teams">
+            <option
+              [ngValue]="getSelectedTeam(teamOption, editForm.get('teams')!.value)"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.name }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

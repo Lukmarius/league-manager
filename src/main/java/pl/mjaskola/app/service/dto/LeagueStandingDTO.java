@@ -40,8 +40,6 @@ public class LeagueStandingDTO implements Serializable {
 
     private TeamDTO team;
 
-    private LeagueDTO league;
-
     public Long getId() {
         return id;
     }
@@ -114,14 +112,6 @@ public class LeagueStandingDTO implements Serializable {
         this.team = team;
     }
 
-    public LeagueDTO getLeague() {
-        return league;
-    }
-
-    public void setLeague(LeagueDTO league) {
-        this.league = league;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -156,7 +146,6 @@ public class LeagueStandingDTO implements Serializable {
             ", draws=" + getDraws() +
             ", losses=" + getLosses() +
             ", team=" + getTeam() +
-            ", league=" + getLeague() +
             "}";
     }
 }

@@ -21,10 +21,10 @@
                                  referencedTableName="team"/>
 
         <addForeignKeyConstraint baseColumnNames="id"
-                                 baseTableName="match"
-                                 constraintName="fk_match__match_result_id"
+                                 baseTableName="match_result"
+                                 constraintName="fk_match_result__match_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="match_result"/>
+                                 referencedTableName="match"/>
 
         <addForeignKeyConstraint baseColumnNames="round_id"
                                  baseTableName="match"

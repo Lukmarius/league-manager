@@ -3,6 +3,7 @@ package pl.mjaskola.app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -28,12 +29,12 @@ public class League implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "league")
+    @OneToMany(mappedBy = "league", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "matches", "league" }, allowSetters = true)
     private Set<Round> rounds = new HashSet<>();
 
-    @OneToMany(mappedBy = "league")
+    @OneToMany(mappedBy = "league", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "team", "league" }, allowSetters = true)
     private Set<LeagueStanding> leagueStandings = new HashSet<>();

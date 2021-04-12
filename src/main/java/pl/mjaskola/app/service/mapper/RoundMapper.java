@@ -9,12 +9,12 @@ import pl.mjaskola.app.service.dto.RoundDTO;
  */
 @Mapper(componentModel = "spring", uses = { LeagueMapper.class })
 public interface RoundMapper extends EntityMapper<RoundDTO, Round> {
-    @Mapping(target = "league", source = "league", qualifiedByName = "name")
     RoundDTO toDto(Round s);
 
     @Named("roundNumber")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "roundNumber", source = "roundNumber")
+    @Mapping(target = "matches", source = "matches")
     RoundDTO toDtoRoundNumber(Round round);
 }

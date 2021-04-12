@@ -1,7 +1,9 @@
 package pl.mjaskola.app.service.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -13,6 +15,26 @@ public class LeagueDTO implements Serializable {
 
     @NotNull
     private String name;
+
+    private Set<RoundDTO> rounds;
+
+    private Set<LeagueStandingDTO> leagueStandings;
+
+    public Set<RoundDTO> getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(Set<RoundDTO> rounds) {
+        this.rounds = rounds;
+    }
+
+    public Set<LeagueStandingDTO> getLeagueStandings() {
+        return leagueStandings;
+    }
+
+    public void setLeagueStandings(Set<LeagueStandingDTO> leagueStandings) {
+        this.leagueStandings = leagueStandings;
+    }
 
     public Long getId() {
         return id;

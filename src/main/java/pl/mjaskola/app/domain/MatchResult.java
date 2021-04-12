@@ -31,6 +31,11 @@ public class MatchResult implements Serializable {
     @Column(name = "away_team_score", nullable = false)
     private Integer awayTeamScore;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private Match match;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -98,5 +103,13 @@ public class MatchResult implements Serializable {
             ", homeTeamScore=" + getHomeTeamScore() +
             ", awayTeamScore=" + getAwayTeamScore() +
             "}";
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 }

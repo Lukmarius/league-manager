@@ -12,6 +12,5 @@ public interface MatchMapper extends EntityMapper<MatchDTO, Match> {
     @Mapping(target = "homeTeam", source = "homeTeam", qualifiedByName = "name")
     @Mapping(target = "awayTeam", source = "awayTeam", qualifiedByName = "name")
     @Mapping(target = "matchResult", source = "matchResult", qualifiedByName = "id")
-    @Mapping(target = "round", source = "round", qualifiedByName = "roundNumber")
     MatchDTO toDto(Match s);
 }
