@@ -29,8 +29,8 @@ public class Match implements Serializable {
     @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
     private Team awayTeam;
 
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "id", nullable = true)
+    @OneToOne(mappedBy = "match", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private MatchResult matchResult;
 
     @ManyToOne

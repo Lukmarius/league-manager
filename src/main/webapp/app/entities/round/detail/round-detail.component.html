@@ -10,19 +10,11 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ round.id }}</span>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.round.roundNumber">Round Number</span></dt>
-        <dd>
+        <dt>
           <span>{{ round.roundNumber }}</span>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.round.league">League</span></dt>
-        <dd>
-          <div *ngIf="round.league">
-            <a [routerLink]="['/league', round.league?.id, 'view']">{{ round.league?.name }}</a>
-          </div>
+        </dt>
+        <dd *ngFor="let match of round.matches">
+          <jhi-match-detail [match]="match"></jhi-match-detail>
         </dd>
       </dl>
 

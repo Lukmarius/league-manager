@@ -8,7 +8,7 @@ import { IRound } from '../round.model';
   templateUrl: './round-detail.component.html',
 })
 export class RoundDetailComponent implements OnInit {
-  round: IRound | null = null;
+  round: IRound | undefined | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 

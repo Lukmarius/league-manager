@@ -24,19 +24,6 @@
             formControlName="roundNumber"
           />
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="leagueManagerApp.round.league" for="field_league">League</label>
-          <select class="form-control" id="field_league" data-cy="league" name="league" formControlName="league">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="leagueOption.id === editForm.get('league')!.value?.id ? editForm.get('league')!.value : leagueOption"
-              *ngFor="let leagueOption of leaguesSharedCollection; trackBy: trackLeagueById"
-            >
-              {{ leagueOption.name }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

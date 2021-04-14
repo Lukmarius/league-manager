@@ -23,7 +23,6 @@ export class MatchUpdateComponent implements OnInit {
 
   teamsSharedCollection: ITeam[] = [];
   matchResultsCollection: IMatchResult[] = [];
-  roundsSharedCollection: IRound[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -101,7 +100,6 @@ export class MatchUpdateComponent implements OnInit {
       homeTeam: match.homeTeam,
       awayTeam: match.awayTeam,
       matchResult: match.matchResult,
-      round: match.round,
     });
 
     this.teamsSharedCollection = this.teamService.addTeamToCollectionIfMissing(this.teamsSharedCollection, match.homeTeam, match.awayTeam);
@@ -109,7 +107,6 @@ export class MatchUpdateComponent implements OnInit {
       this.matchResultsCollection,
       match.matchResult
     );
-    this.roundsSharedCollection = this.roundService.addRoundToCollectionIfMissing(this.roundsSharedCollection, match.round);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -132,12 +129,6 @@ export class MatchUpdateComponent implements OnInit {
         )
       )
       .subscribe((matchResults: IMatchResult[]) => (this.matchResultsCollection = matchResults));
-
-    this.roundService
-      .query()
-      .pipe(map((res: HttpResponse<IRound[]>) => res.body ?? []))
-      .pipe(map((rounds: IRound[]) => this.roundService.addRoundToCollectionIfMissing(rounds, this.editForm.get('round')!.value)))
-      .subscribe((rounds: IRound[]) => (this.roundsSharedCollection = rounds));
   }
 
   protected createFromForm(): IMatch {
@@ -147,7 +138,6 @@ export class MatchUpdateComponent implements OnInit {
       homeTeam: this.editForm.get(['homeTeam'])!.value,
       awayTeam: this.editForm.get(['awayTeam'])!.value,
       matchResult: this.editForm.get(['matchResult'])!.value,
-      round: this.editForm.get(['round'])!.value,
     };
   }
 }

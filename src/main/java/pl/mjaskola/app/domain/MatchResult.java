@@ -33,7 +33,7 @@ public class MatchResult implements Serializable {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "id")
     private Match match;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,52 +1,17 @@
-<div class="row justify-content-center">
+<div class="row justify-content-start">
+  <div class="col-8">{{ match?.homeTeam?.name }} - {{ match?.awayTeam?.name }}</div>
   <div class="col-8">
-    <div *ngIf="match">
-      <h2 data-cy="matchDetailsHeading"><span jhiTranslate="leagueManagerApp.match.detail.title">Match</span></h2>
-
-      <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
-      <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ match.id }}</span>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.match.homeTeam">Home Team</span></dt>
-        <dd>
-          <div *ngIf="match.homeTeam">
-            <a [routerLink]="['/team', match.homeTeam?.id, 'view']">{{ match.homeTeam?.name }}</a>
-          </div>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.match.awayTeam">Away Team</span></dt>
-        <dd>
-          <div *ngIf="match.awayTeam">
-            <a [routerLink]="['/team', match.awayTeam?.id, 'view']">{{ match.awayTeam?.name }}</a>
-          </div>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.match.matchResult">Match Result</span></dt>
-        <dd>
-          <div *ngIf="match.matchResult">
-            <a [routerLink]="['/match-result', match.matchResult?.id, 'view']">{{ match.matchResult?.id }}</a>
-          </div>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.match.round">Round</span></dt>
-        <dd>
-          <div *ngIf="match.round">
-            <a [routerLink]="['/round', match.round?.id, 'view']">{{ match.round?.roundNumber }}</a>
-          </div>
-        </dd>
-      </dl>
-
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/match', match.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-      </button>
-    </div>
+    <jhi-match-result-detail
+      *ngIf="!editMode; else edit"
+      [matchResult]="match?.matchResult"
+      (click)="turnOnEditMode()"
+    ></jhi-match-result-detail>
+    <ng-template #edit>
+      <jhi-match-result-update
+        [matchResult]="match?.matchResult"
+        (saving)="onSaveResult($event)"
+        (cancellation)="onCancelEditResult()"
+      ></jhi-match-result-update>
+    </ng-template>
   </div>
 </div>

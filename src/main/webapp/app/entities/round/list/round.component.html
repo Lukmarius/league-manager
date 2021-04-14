@@ -36,9 +36,6 @@
           <th scope="col" jhiSortBy="roundNumber">
             <span jhiTranslate="leagueManagerApp.round.roundNumber">Round Number</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="league.name">
-            <span jhiTranslate="leagueManagerApp.round.league">League</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -48,11 +45,6 @@
             <a [routerLink]="['/round', round.id, 'view']">{{ round.id }}</a>
           </td>
           <td>{{ round.roundNumber }}</td>
-          <td>
-            <div *ngIf="round.league">
-              <a [routerLink]="['/league', round.league?.id, 'view']">{{ round.league?.name }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/round', round.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

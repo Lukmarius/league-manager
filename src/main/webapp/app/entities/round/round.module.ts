@@ -6,9 +6,10 @@ import { RoundDetailComponent } from './detail/round-detail.component';
 import { RoundUpdateComponent } from './update/round-update.component';
 import { RoundDeleteDialogComponent } from './delete/round-delete-dialog.component';
 import { RoundRoutingModule } from './route/round-routing.module';
+import { MatchModule } from 'app/entities/match/match.module';
 
 @NgModule({
-  imports: [SharedModule, RoundRoutingModule],
+  imports: [SharedModule, RoundRoutingModule, MatchModule],
   declarations: [RoundComponent, RoundDetailComponent, RoundUpdateComponent, RoundDeleteDialogComponent],
   entryComponents: [RoundDeleteDialogComponent],
 })

@@ -17,12 +17,9 @@ import { LeagueService } from 'app/entities/league/service/league.service';
 export class RoundUpdateComponent implements OnInit {
   isSaving = false;
 
-  leaguesSharedCollection: ILeague[] = [];
-
   editForm = this.fb.group({
     id: [],
     roundNumber: [],
-    league: [],
   });
 
   constructor(
@@ -35,8 +32,6 @@ export class RoundUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ round }) => {
       this.updateForm(round);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -81,18 +76,7 @@ export class RoundUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: round.id,
       roundNumber: round.roundNumber,
-      league: round.league,
     });
-
-    this.leaguesSharedCollection = this.leagueService.addLeagueToCollectionIfMissing(this.leaguesSharedCollection, round.league);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.leagueService
-      .query()
-      .pipe(map((res: HttpResponse<ILeague[]>) => res.body ?? []))
-      .pipe(map((leagues: ILeague[]) => this.leagueService.addLeagueToCollectionIfMissing(leagues, this.editForm.get('league')!.value)))
-      .subscribe((leagues: ILeague[]) => (this.leaguesSharedCollection = leagues));
   }
 
   protected createFromForm(): IRound {
@@ -100,7 +84,6 @@ export class RoundUpdateComponent implements OnInit {
       ...new Round(),
       id: this.editForm.get(['id'])!.value,
       roundNumber: this.editForm.get(['roundNumber'])!.value,
-      league: this.editForm.get(['league'])!.value,
     };
   }
 }

@@ -42,9 +42,6 @@
           <th scope="col" jhiSortBy="matchResult.id">
             <span jhiTranslate="leagueManagerApp.match.matchResult">Match Result</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="round.roundNumber">
-            <span jhiTranslate="leagueManagerApp.match.round">Round</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -66,11 +63,6 @@
           <td>
             <div *ngIf="match.matchResult">
               <a [routerLink]="['/match-result', match.matchResult?.id, 'view']">{{ match.matchResult?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="match.round">
-              <a [routerLink]="['/round', match.round?.id, 'view']">{{ match.round?.roundNumber }}</a>
             </div>
           </td>
           <td class="text-right">

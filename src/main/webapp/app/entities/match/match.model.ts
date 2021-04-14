@@ -6,8 +6,7 @@ export interface IMatch {
   id?: number;
   homeTeam?: ITeam | null;
   awayTeam?: ITeam | null;
-  matchResult?: IMatchResult | null;
-  round?: IRound | null;
+  matchResult?: IMatchResult | undefined | null;
 }
 
 export class Match implements IMatch {
@@ -15,8 +14,7 @@ export class Match implements IMatch {
     public id?: number,
     public homeTeam?: ITeam | null,
     public awayTeam?: ITeam | null,
-    public matchResult?: IMatchResult | null,
-    public round?: IRound | null
+    public matchResult?: IMatchResult | undefined | null
   ) {}
 }
 

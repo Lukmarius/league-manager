@@ -11,5 +11,6 @@ import { MatchResultRoutingModule } from './route/match-result-routing.module';
   imports: [SharedModule, MatchResultRoutingModule],
   declarations: [MatchResultComponent, MatchResultDetailComponent, MatchResultUpdateComponent, MatchResultDeleteDialogComponent],
   entryComponents: [MatchResultDeleteDialogComponent],
+  exports: [MatchResultDetailComponent, MatchResultUpdateComponent],
 })
 export class MatchResultModule {}

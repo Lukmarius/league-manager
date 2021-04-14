@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,12 +7,17 @@ import { finalize } from 'rxjs/operators';
 
 import { IMatchResult, MatchResult } from '../match-result.model';
 import { MatchResultService } from '../service/match-result.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'jhi-match-result-update',
   templateUrl: './match-result-update.component.html',
 })
 export class MatchResultUpdateComponent implements OnInit {
+  @Input() matchResult: IMatchResult | undefined | null;
+  @Output() cancellation = new EventEmitter<void>();
+  @Output() saving = new EventEmitter<IMatchResult>();
+
   isSaving = false;
 
   editForm = this.fb.group({
@@ -24,9 +29,10 @@ export class MatchResultUpdateComponent implements OnInit {
   constructor(protected matchResultService: MatchResultService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ matchResult }) => {
-      this.updateForm(matchResult);
-    });
+    if (!this.matchResult) {
+      this.matchResult = new MatchResult(undefined, 0, 0);
+    }
+    this.updateForm();
   }
 
   previousState(): void {
@@ -35,12 +41,12 @@ export class MatchResultUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const matchResult = this.createFromForm();
-    if (matchResult.id !== undefined) {
-      this.subscribeToSaveResponse(this.matchResultService.update(matchResult));
-    } else {
-      this.subscribeToSaveResponse(this.matchResultService.create(matchResult));
-    }
+    this.matchResult = this.createFromForm();
+    this.saving.emit(this.matchResult);
+  }
+
+  cancel(): void {
+    this.cancellation.emit();
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IMatchResult>>): void {
@@ -51,7 +57,7 @@ export class MatchResultUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    // Api for inheritance.
   }
 
   protected onSaveError(): void {
@@ -62,18 +68,18 @@ export class MatchResultUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(matchResult: IMatchResult): void {
+  protected updateForm(): void {
     this.editForm.patchValue({
-      id: matchResult.id,
-      homeTeamScore: matchResult.homeTeamScore,
-      awayTeamScore: matchResult.awayTeamScore,
+      id: this.matchResult?.id,
+      homeTeamScore: this.matchResult?.homeTeamScore,
+      awayTeamScore: this.matchResult?.awayTeamScore,
     });
   }
 
   protected createFromForm(): IMatchResult {
     return {
-      ...new MatchResult(),
-      id: this.editForm.get(['id'])!.value,
+      ...this.matchResult,
+      id: this.matchResult?.id,
       homeTeamScore: this.editForm.get(['homeTeamScore'])!.value,
       awayTeamScore: this.editForm.get(['awayTeamScore'])!.value,
     };

@@ -39,8 +39,6 @@ public class MatchServiceImpl implements MatchService {
     public MatchDTO save(MatchDTO matchDTO) {
         log.debug("Request to save Match : {}", matchDTO);
         Match match = matchMapper.toEntity(matchDTO);
-        Long matchResultId = matchDTO.getMatchResult().getId();
-        matchResultRepository.findById(matchResultId).ifPresent(match::matchResult);
         match = matchRepository.save(match);
         return matchMapper.toDto(match);
     }
