@@ -22,6 +22,7 @@ import pl.mjaskola.app.service.LeagueQueryService;
 import pl.mjaskola.app.service.LeagueService;
 import pl.mjaskola.app.service.criteria.LeagueCriteria;
 import pl.mjaskola.app.service.dto.LeagueDTO;
+import pl.mjaskola.app.service.dto.LeagueWithListsDTO;
 import pl.mjaskola.app.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -177,9 +178,9 @@ public class LeagueResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the leagueDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/leagues/{id}")
-    public ResponseEntity<LeagueDTO> getLeague(@PathVariable Long id) {
+    public ResponseEntity<LeagueWithListsDTO> getLeague(@PathVariable Long id) {
         log.debug("REST request to get League : {}", id);
-        Optional<LeagueDTO> leagueDTO = leagueService.findOne(id);
+        Optional<LeagueWithListsDTO> leagueDTO = leagueService.findOneWithLists(id);
         return ResponseUtil.wrapOrNotFound(leagueDTO);
     }
 

@@ -11,7 +11,9 @@ import pl.mjaskola.app.domain.League;
 import pl.mjaskola.app.repository.LeagueRepository;
 import pl.mjaskola.app.service.LeagueService;
 import pl.mjaskola.app.service.dto.LeagueDTO;
+import pl.mjaskola.app.service.dto.LeagueWithListsDTO;
 import pl.mjaskola.app.service.mapper.LeagueMapper;
+import pl.mjaskola.app.service.mapper.LeagueWithListsMapper;
 
 /**
  * Service Implementation for managing {@link League}.
@@ -25,10 +27,12 @@ public class LeagueServiceImpl implements LeagueService {
     private final LeagueRepository leagueRepository;
 
     private final LeagueMapper leagueMapper;
+    private final LeagueWithListsMapper listsMapper;
 
-    public LeagueServiceImpl(LeagueRepository leagueRepository, LeagueMapper leagueMapper) {
+    public LeagueServiceImpl(LeagueRepository leagueRepository, LeagueMapper leagueMapper, LeagueWithListsMapper listsMapper) {
         this.leagueRepository = leagueRepository;
         this.leagueMapper = leagueMapper;
+        this.listsMapper = listsMapper;
     }
 
     @Override
@@ -67,6 +71,13 @@ public class LeagueServiceImpl implements LeagueService {
     public Optional<LeagueDTO> findOne(Long id) {
         log.debug("Request to get League : {}", id);
         return leagueRepository.findById(id).map(leagueMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<LeagueWithListsDTO> findOneWithLists(Long id) {
+        log.debug("Request to get League : {}", id);
+        return leagueRepository.findById(id).map(listsMapper::toDto);
     }
 
     @Override

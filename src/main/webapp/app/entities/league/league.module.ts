@@ -13,5 +13,6 @@ import { RoundModule } from 'app/entities/round/round.module';
   imports: [SharedModule, LeagueRoutingModule, LeagueStandingModule, RoundModule],
   declarations: [LeagueComponent, LeagueDetailComponent, LeagueUpdateComponent, LeagueDeleteDialogComponent],
   entryComponents: [LeagueDeleteDialogComponent],
+  exports: [LeagueComponent],
 })
 export class LeagueModule {}

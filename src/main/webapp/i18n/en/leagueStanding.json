@@ -18,8 +18,9 @@
         "title": "League Standing"
       },
       "id": "ID",
-      "position": "Position",
+      "position": "#",
       "points": "Points",
+      "goalsBalance": "Goal Balance",
       "scoredGoals": "Scored Goals",
       "lostGoals": "Lost Goals",
       "wins": "Wins",

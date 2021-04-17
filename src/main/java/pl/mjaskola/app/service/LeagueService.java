@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pl.mjaskola.app.service.dto.LeagueDTO;
+import pl.mjaskola.app.service.dto.LeagueWithListsDTO;
 
 /**
  * Service Interface for managing {@link pl.mjaskola.app.domain.League}.
@@ -47,4 +48,6 @@ public interface LeagueService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<LeagueWithListsDTO> findOneWithLists(Long id);
 }

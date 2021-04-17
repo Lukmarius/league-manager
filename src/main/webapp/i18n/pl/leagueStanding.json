@@ -2,31 +2,32 @@
   "leagueManagerApp": {
     "leagueStanding": {
       "home": {
-        "title": "League Standing",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Dodaj League Standing",
-        "createOrEditLabel": "Dodaj lub edytuj: League Standing",
-        "notFound": "No League Standings found"
+        "title": "Tabela Ligowa",
+        "refreshListLabel": "Odśwież",
+        "createLabel": "Dodaj Tabelę Ligową",
+        "createOrEditLabel": "Dodaj lub edytuj: Tabela Ligowa",
+        "notFound": "No Tabela Ligowas found"
       },
-      "created": "Utworzono nowy obiekt typu League Standing z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu League Standing z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu League Standing z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Tabela Ligowa z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tabela Ligowa z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tabela Ligowa z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć League Standing {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Tabela Ligowa {{ id }}?"
       },
       "detail": {
-        "title": "League Standing"
+        "title": "Tabela Ligowa"
       },
       "id": "ID",
-      "position": "Position",
-      "points": "Points",
-      "scoredGoals": "Scored Goals",
-      "lostGoals": "Lost Goals",
-      "wins": "Wins",
-      "draws": "Draws",
-      "losses": "Losses",
-      "team": "Team",
-      "league": "League"
+      "position": "#",
+      "points": "Pkt",
+      "goalsBalance": "Bilans br.",
+      "scoredGoals": "Strzelone",
+      "lostGoals": "Stracone",
+      "wins": "Wygrane",
+      "draws": "Remisy",
+      "losses": "Porażki",
+      "team": "Drużyna",
+      "league": "Liga"
     }
   }
 }

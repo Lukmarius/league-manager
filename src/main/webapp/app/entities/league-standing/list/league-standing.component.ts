@@ -79,6 +79,12 @@ export class LeagueStandingComponent {
     return wins + draws + losses;
   }
 
+  countBalance(l: ILeagueStanding): number {
+    const scored = l.scoredGoals ? l.scoredGoals : 0;
+    const lost = l.lostGoals ? l.lostGoals : 0;
+    return scored - lost;
+  }
+
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {

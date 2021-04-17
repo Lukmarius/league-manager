@@ -1,19 +1,4 @@
 <div>
-  <h2 id="page-heading" data-cy="LeagueStandingHeading">
-    <span jhiTranslate="leagueManagerApp.leagueStanding.home.title">League Standings</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="leagueManagerApp.leagueStanding.home.refreshListLabel">Refresh List</span>
-      </button>
-    </div>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
   <div class="alert alert-warning" id="no-result" *ngIf="leagueStandings?.length === 0">
     <span jhiTranslate="leagueManagerApp.leagueStanding.home.notFound">No leagueStandings found</span>
   </div>
@@ -22,33 +7,24 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-          <th scope="col" jhiSortBy="position">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.position">Position</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="team.name">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.team">Team</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="points">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.points">Points</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.position">Position</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.team">Team</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.points">Points</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col">
             <span jhiTranslate="leagueManagerApp.match.home.title">Matches</span>
           </th>
-          <th scope="col" jhiSortBy="scoredGoals">
+          <th scope="col">
+            <span jhiTranslate="leagueManagerApp.leagueStanding.goalsBalance">Goals</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col">
             <span jhiTranslate="leagueManagerApp.leagueStanding.scoredGoals">Scored Goals</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="lostGoals">
+          <th scope="col">
             <span jhiTranslate="leagueManagerApp.leagueStanding.lostGoals">Lost Goals</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="wins">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.wins">Wins</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="draws">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.draws">Draws</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="losses">
-            <span jhiTranslate="leagueManagerApp.leagueStanding.losses">Losses</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.wins">Wins</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.draws">Draws</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"><span jhiTranslate="leagueManagerApp.leagueStanding.losses">Losses</span> <fa-icon icon="sort"></fa-icon></th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +37,7 @@
           </td>
           <td>{{ leagueStanding.points }}</td>
           <td>{{ countMatches(leagueStanding) }}</td>
+          <td>{{ countBalance(leagueStanding) }}</td>
           <td>{{ leagueStanding.scoredGoals }}</td>
           <td>{{ leagueStanding.lostGoals }}</td>
           <td>{{ leagueStanding.wins }}</td>
@@ -70,4 +47,8 @@
       </tbody>
     </table>
   </div>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
 </div>
