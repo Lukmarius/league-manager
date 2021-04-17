@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-8">
+  <div class="col-12">
     <div *ngIf="league">
       <h2 data-cy="leagueDetailsHeading"><span jhiTranslate="leagueManagerApp.league.detail.title">League</span></h2>
 
@@ -9,23 +9,22 @@
 
       <jhi-alert></jhi-alert>
 
-      <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ league.id }}</span>
-        </dd>
-        <dt><span jhiTranslate="leagueManagerApp.league.name">Name</span></dt>
-        <dd>
+      <div class="row-md jh-entity-details">
+        <div>
           <span>{{ league.name }}</span>
-        </dd>
-      </dl>
+        </div>
+      </div>
+
+      <div class="row">
+        <jhi-league-standing [leagueStandings]="league?.leagueStandings"></jhi-league-standing>
+      </div>
+
+      <div *ngFor="let round of league?.rounds">
+        <jhi-round-detail [round]="round"></jhi-round-detail>
+      </div>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/league', league.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

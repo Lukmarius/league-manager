@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IRound } from '../round.model';
@@ -8,14 +8,16 @@ import { IRound } from '../round.model';
   templateUrl: './round-detail.component.html',
 })
 export class RoundDetailComponent implements OnInit {
-  round: IRound | undefined | null = null;
+  @Input() round: IRound | undefined | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ round }) => {
-      this.round = round;
-    });
+    if (!this.round) {
+      this.activatedRoute.data.subscribe(({ round }) => {
+        this.round = round;
+      });
+    }
   }
 
   previousState(): void {

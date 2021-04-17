@@ -8,7 +8,7 @@ import { ILeague } from '../league.model';
   templateUrl: './league-detail.component.html',
 })
 export class LeagueDetailComponent implements OnInit {
-  league: ILeague | null = null;
+  league: ILeague | undefined | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 

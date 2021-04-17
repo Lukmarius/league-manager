@@ -12,5 +12,6 @@ import { MatchModule } from 'app/entities/match/match.module';
   imports: [SharedModule, RoundRoutingModule, MatchModule],
   declarations: [RoundComponent, RoundDetailComponent, RoundUpdateComponent, RoundDeleteDialogComponent],
   entryComponents: [RoundDeleteDialogComponent],
+  exports: [RoundDetailComponent],
 })
 export class RoundModule {}

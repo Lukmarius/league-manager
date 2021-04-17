@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
@@ -14,11 +14,11 @@ import { LeagueStandingDeleteDialogComponent } from '../delete/league-standing-d
   selector: 'jhi-league-standing',
   templateUrl: './league-standing.component.html',
 })
-export class LeagueStandingComponent implements OnInit {
-  leagueStandings?: ILeagueStanding[];
+export class LeagueStandingComponent {
+  @Input() leagueStandings?: ILeagueStanding[] | null | undefined;
   isLoading = false;
   totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
+  itemsPerPage = 30;
   page?: number;
   predicate!: string;
   ascending!: boolean;
@@ -53,9 +53,9 @@ export class LeagueStandingComponent implements OnInit {
       );
   }
 
-  ngOnInit(): void {
-    this.handleNavigation();
-  }
+  // ngOnInit(): void {
+  //   this.handleNavigation();
+  // }
 
   trackId(index: number, item: ILeagueStanding): number {
     return item.id!;
@@ -70,6 +70,13 @@ export class LeagueStandingComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  countMatches(l: ILeagueStanding): number {
+    const wins = l.wins ? l.wins : 0;
+    const draws = l.draws ? l.draws : 0;
+    const losses = l.losses ? l.losses : 0;
+    return wins + draws + losses;
   }
 
   protected sort(): string[] {

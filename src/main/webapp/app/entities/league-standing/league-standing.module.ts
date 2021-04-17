@@ -16,5 +16,6 @@ import { LeagueStandingRoutingModule } from './route/league-standing-routing.mod
     LeagueStandingDeleteDialogComponent,
   ],
   entryComponents: [LeagueStandingDeleteDialogComponent],
+  exports: [LeagueStandingComponent],
 })
 export class LeagueStandingModule {}

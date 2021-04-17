@@ -6,9 +6,11 @@ import { LeagueDetailComponent } from './detail/league-detail.component';
 import { LeagueUpdateComponent } from './update/league-update.component';
 import { LeagueDeleteDialogComponent } from './delete/league-delete-dialog.component';
 import { LeagueRoutingModule } from './route/league-routing.module';
+import { LeagueStandingModule } from 'app/entities/league-standing/league-standing.module';
+import { RoundModule } from 'app/entities/round/round.module';
 
 @NgModule({
-  imports: [SharedModule, LeagueRoutingModule],
+  imports: [SharedModule, LeagueRoutingModule, LeagueStandingModule, RoundModule],
   declarations: [LeagueComponent, LeagueDetailComponent, LeagueUpdateComponent, LeagueDeleteDialogComponent],
   entryComponents: [LeagueDeleteDialogComponent],
 })
