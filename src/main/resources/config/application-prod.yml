@@ -52,9 +52,9 @@ spring:
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/LeagueManager
-    username: LeagueManager
-    password:
+    url: jdbc:postgresql://ec2-54-216-185-51.eu-west-1.compute.amazonaws.com:5432/dak03q4d9dm6tl
+    username: lwgniytomrbuct
+    password: 3f8fef7d19c89886dbcfae2a8684902a81cea546b75860ae4604591f84120d5f
     hikari:
       poolName: Hikari
       auto-commit: false

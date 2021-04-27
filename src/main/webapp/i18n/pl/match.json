@@ -2,7 +2,7 @@
   "leagueManagerApp": {
     "match": {
       "home": {
-        "title": "Match",
+        "title": "Mecze",
         "refreshListLabel": "Refresh list",
         "createLabel": "Dodaj Match",
         "createOrEditLabel": "Dodaj lub edytuj: Match",
