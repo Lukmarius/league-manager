@@ -12,7 +12,7 @@
 
 eureka:
   instance:
-    hostname: quiet-plains-86418.herokuapp.com
+    hostname: 'quiet-plains-86418.herokuapp.com'
     non-secure-port: 80
     prefer-ip-address: false
   client:
