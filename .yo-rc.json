@@ -43,9 +43,6 @@
     "clientPackageManager": "npm",
     "languages": ["en", "pl"],
     "lastLiquibaseTimestamp": 1617925262000,
-    "entities": ["Team", "MatchResult", "Match", "Round", "League", "LeagueStanding"],
-    "herokuAppName": "quiet-plains-86418",
-    "herokuDeployType": "git",
-    "herokuJavaVersion": "11"
+    "entities": ["Team", "MatchResult", "Match", "Round", "League", "LeagueStanding"]
   }
 }
