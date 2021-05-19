@@ -170,4 +170,11 @@ ui bootstrap tweaks
   white-space: nowrap;
 }
 
+.match-result {
+  cursor: pointer;
+  :hover {
+    color: #fcfcfc;
+  }
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */
