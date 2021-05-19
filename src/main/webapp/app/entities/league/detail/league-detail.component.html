@@ -6,11 +6,11 @@
       <hr />
 
       <div class="row">
-        <jhi-league-standing [leagueStandings]="league?.leagueStandings"></jhi-league-standing>
+        <jhi-league-standing [leagueStandings]="standings"></jhi-league-standing>
       </div>
 
       <div *ngFor="let round of league?.rounds">
-        <jhi-round-detail [round]="round"></jhi-round-detail>
+        <jhi-round-detail [round]="round" (newResult)="onNewResult()"></jhi-round-detail>
       </div>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

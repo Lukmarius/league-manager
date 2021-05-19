@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { ILeague, getLeagueIdentifier } from '../league.model';
+import { ILeague, getLeagueIdentifier, League } from '../league.model';
 import { ILeagueRequest } from 'app/entities/league/league-request.model';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 
 export type EntityResponseType = HttpResponse<ILeague>;
 export type EntityArrayResponseType = HttpResponse<ILeague[]>;
@@ -31,6 +33,21 @@ export class LeagueService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<ILeague>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  resolve(id: number | undefined | null): Observable<ILeague> | Observable<never> {
+    if (id) {
+      return this.find(id).pipe(
+        mergeMap((league: HttpResponse<League>) => {
+          if (league.body) {
+            return of(league.body);
+          } else {
+            return EMPTY;
+          }
+        })
+      );
+    }
+    return of(new League());
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

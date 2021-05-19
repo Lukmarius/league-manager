@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IMatch } from '../match.model';
@@ -11,6 +11,7 @@ import { MatchService } from 'app/entities/match/service/match.service';
 })
 export class MatchDetailComponent implements OnInit {
   @Input() match: IMatch | null | undefined = null;
+  @Output() newResult: EventEmitter<void> = new EventEmitter<void>();
   editMode = false;
 
   constructor(protected activatedRoute: ActivatedRoute, protected matchService: MatchService) {}
@@ -32,6 +33,7 @@ export class MatchDetailComponent implements OnInit {
       this.match.matchResult = $event;
       this.matchService.update(this.match).subscribe(() => {
         this.editMode = false;
+        this.newResult.emit();
       });
     }
   }

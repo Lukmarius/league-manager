@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IRound } from '../round.model';
@@ -9,6 +9,7 @@ import { IRound } from '../round.model';
 })
 export class RoundDetailComponent implements OnInit {
   @Input() round: IRound | undefined | null = null;
+  @Output() newResult: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
@@ -22,5 +23,9 @@ export class RoundDetailComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  onNewResult(): void {
+    this.newResult.emit();
   }
 }

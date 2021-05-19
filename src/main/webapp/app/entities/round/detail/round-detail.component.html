@@ -9,7 +9,7 @@
           <span>{{ round.roundNumber }}.</span>
         </div>
         <div *ngFor="let match of round.matches">
-          <jhi-match-detail [match]="match"></jhi-match-detail>
+          <jhi-match-detail [match]="match" (newResult)="onNewResult()"></jhi-match-detail>
         </div>
       </div>
     </div>
